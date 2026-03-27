@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RSVP – Semilac Days 2026</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -50,6 +51,8 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinner { width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(232,201,126,0.15); border-top: 2px solid #e8c97e; animation: spin 0.8s linear infinite; margin: 0 auto; }
     .loading-text { color: #e8c97e; font-size: 14px; font-style: italic; margin-top: 16px; }
+    .btn-download { display: block; width: 100%; padding: 14px 0; border-radius: 12px; font-size: 14px; font-family: Georgia, serif; letter-spacing: 0.05em; border: none; cursor: pointer; background: linear-gradient(135deg, #c9a84c, #e8c97e); color: #0c0c14; font-weight: bold; margin-bottom: 12px; text-align: center; }
+    .btn-download:hover { opacity: 0.9; }
     @media (max-width: 480px) { .card { padding: 28px 20px; } h1.title { font-size: 28px; } .btn-row { flex-direction: column; } }
   </style>
 </head>
@@ -83,6 +86,10 @@
         <input id="salon" type="text" placeholder="Facultatif" />
       </div>
       <div class="field">
+        <label for="phone">Numéro WhatsApp *</label>
+        <input id="phone" type="tel" placeholder="06XXXXXXXX" oninput="checkForm()" />
+      </div>
+      <div class="field">
         <label for="guests">Nombre de personnes</label>
         <select id="guests">
           <option value="1">1</option>
@@ -98,25 +105,27 @@
       <button class="btn btn-confirm" id="btn-confirm" onclick="submit('confirm')" disabled>✓ &nbsp;Je confirme</button>
       <button class="btn btn-decline" id="btn-decline" onclick="submit('decline')" disabled>✗ &nbsp;Je ne pourrai pas</button>
     </div>
-    <p class="hint" id="hint">Veuillez saisir votre nom pour continuer</p>
+    <p class="hint" id="hint">Veuillez saisir votre nom et WhatsApp</p>
   </div>
 
   <div class="card" id="view-loading" style="display:none">
     <div class="loading-wrap">
       <div class="spinner"></div>
-      <p class="loading-text">Envoi en cours…</p>
+      <p class="loading-text">Génération de votre billet…</p>
     </div>
   </div>
 
   <div class="card" id="view-success" style="display:none">
     <div class="circle circle-confirm">✓</div>
     <h2 class="result-title">Présence confirmée !</h2>
-    <p class="result-text">Merci <strong id="success-name"></strong>, votre participation aux <em>Semilac Days 2026</em> est bien enregistrée.</p>
+    <p class="result-text">Merci <strong id="success-name"></strong>, votre billet est prêt.</p>
     <div class="info-badge">
       <span>📅 14 — 19 Mai 2026</span>
       <span>📍 Showroom Cosmotrend · Casablanca</span>
+      <span>🎟️ Billet n° <strong id="ticket-number" style="color:#e8c97e"></strong></span>
     </div>
-    <p class="note">Vous recevrez les détails par WhatsApp ou email. À très bientôt !</p>
+    <button class="btn-download" onclick="downloadTicket()">⬇ Télécharger mon billet PDF</button>
+    <p class="note">Présentez ce billet à l'entrée du showroom.</p>
     <button class="ghost" onclick="reset()">← Modifier ma réponse</button>
   </div>
 
@@ -130,8 +139,12 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxdFgoG_FAeX_TbmztcrLLigfA3OIiczGTZnDg0itZ1djTWHrObY0DbLOYwFqQgsTyd/exec";
 
+    let currentData = {};
+
     function checkForm() {
-      const ok = document.getElementById("name").value.trim().length > 0;
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const ok = name.length > 0 && phone.length > 0;
       document.getElementById("btn-confirm").disabled = !ok;
       document.getElementById("btn-decline").disabled = !ok;
       document.getElementById("hint").style.display = ok ? "none" : "block";
@@ -143,33 +156,208 @@
       });
     }
 
+    function generateTicketNumber() {
+      const prefix = "SD26";
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      return `${prefix}-${rand}`;
+    }
+
     function submit(type) {
       const name   = document.getElementById("name").value.trim();
       const salon  = document.getElementById("salon").value.trim();
+      const phone  = document.getElementById("phone").value.trim();
       const guests = document.getElementById("guests").value;
-      if (!name) return;
+      if (!name || !phone) return;
+
+      const ticketNum = generateTicketNumber();
+
+      currentData = { name, salon, phone, guests, type, ticketNum };
+
       show("view-loading");
-      const params = new URLSearchParams({ name, salon, guests, type });
-      fetch(`${SCRIPT_URL}?${params}`, { mode: "no-cors" })
-        .catch(() => {})
-        .finally(() => {
-          if (type === "confirm") {
-            document.getElementById("success-name").textContent = name;
-            show("view-success");
-          } else {
-            document.getElementById("decline-name").textContent = name;
-            show("view-decline");
-          }
-        });
+
+      const params = new URLSearchParams({ name, salon, phone, guests, type, ticket: ticketNum });
+      fetch(`${SCRIPT_URL}?${params}`, { mode: "no-cors" }).catch(() => {});
+
+      setTimeout(() => {
+        if (type === "confirm") {
+          document.getElementById("success-name").textContent = name;
+          document.getElementById("ticket-number").textContent = ticketNum;
+          show("view-success");
+        } else {
+          document.getElementById("decline-name").textContent = name;
+          show("view-decline");
+        }
+      }, 1200);
+    }
+
+    function downloadTicket() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: [148, 105] });
+
+      const W = 148, H = 105;
+
+      // Background
+      doc.setFillColor(12, 12, 20);
+      doc.rect(0, 0, W, H, "F");
+
+      // Gold border
+      doc.setDrawColor(232, 201, 126);
+      doc.setLineWidth(0.6);
+      doc.rect(4, 4, W - 8, H - 8);
+      doc.setLineWidth(0.2);
+      doc.rect(6, 6, W - 12, H - 12);
+
+      // Decorative vertical separator
+      doc.setDrawColor(232, 201, 126, 0.3);
+      doc.setLineWidth(0.3);
+      doc.line(105, 10, 105, H - 10);
+
+      // LEFT SIDE — Main info
+      // Header logos
+      doc.setFontSize(6);
+      doc.setTextColor(232, 201, 126);
+      doc.setFont("helvetica", "normal");
+      doc.text("COSMOTREND  ×  SEMILAC", 14, 16, { charSpace: 1 });
+
+      // Edition badge
+      doc.setFontSize(5.5);
+      doc.setTextColor(180, 160, 100);
+      doc.text("2ÈME ÉDITION", 14, 21, { charSpace: 1.5 });
+
+      // Divider line
+      doc.setDrawColor(232, 201, 126);
+      doc.setLineWidth(0.3);
+      doc.line(14, 24, 60, 24);
+
+      // Event name
+      doc.setFontSize(22);
+      doc.setTextColor(240, 230, 200);
+      doc.setFont("helvetica", "bold");
+      doc.text("Semilac Days", 14, 35);
+
+      // Date & Location
+      doc.setFontSize(8);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(176, 160, 128);
+      doc.text("14 — 19 Mai 2026", 14, 44);
+      doc.text("Showroom Cosmotrend · Casablanca", 14, 50);
+
+      // Divider
+      doc.setDrawColor(100, 90, 70);
+      doc.setLineWidth(0.2);
+      doc.line(14, 54, 95, 54);
+
+      // Guest info
+      doc.setFontSize(7);
+      doc.setTextColor(180, 160, 100);
+      doc.setFont("helvetica", "normal");
+      doc.text("INVITÉ(E)", 14, 61, { charSpace: 1 });
+
+      doc.setFontSize(12);
+      doc.setTextColor(240, 230, 200);
+      doc.setFont("helvetica", "bold");
+      doc.text(currentData.name, 14, 69);
+
+      if (currentData.salon) {
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(176, 160, 128);
+        doc.text(currentData.salon, 14, 75);
+      }
+
+      doc.setFontSize(7.5);
+      doc.setTextColor(176, 160, 128);
+      doc.setFont("helvetica", "normal");
+      const guestLabel = currentData.guests === "1" ? "1 personne" : `${currentData.guests} personnes`;
+      doc.text(guestLabel, 14, 82);
+
+      // Ticket number bottom left
+      doc.setFontSize(6.5);
+      doc.setTextColor(100, 90, 70);
+      doc.text(`Billet N° ${currentData.ticketNum}`, 14, 95);
+
+      // RIGHT SIDE — Avantages
+      const rx = 112;
+
+      doc.setFontSize(6.5);
+      doc.setTextColor(232, 201, 126);
+      doc.setFont("helvetica", "bold");
+      doc.text("VOS AVANTAGES", rx, 16, { charSpace: 1 });
+
+      doc.setDrawColor(232, 201, 126);
+      doc.setLineWidth(0.3);
+      doc.line(rx, 18.5, 141, 18.5);
+
+      // Avantage 1
+      doc.setFillColor(232, 201, 126);
+      doc.circle(rx + 2, 27, 2, "F");
+      doc.setFontSize(7);
+      doc.setTextColor(12, 12, 20);
+      doc.setFont("helvetica", "bold");
+      doc.text("-25%", rx + 1.2, 27.5);
+
+      doc.setFontSize(8);
+      doc.setTextColor(240, 230, 200);
+      doc.setFont("helvetica", "bold");
+      doc.text("Coupon de réduction", rx + 7, 25.5);
+      doc.setFontSize(7);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(176, 160, 128);
+      doc.text("-25% sur votre commande du jour", rx + 7, 30);
+
+      // Avantage 2
+      doc.setFillColor(232, 201, 126);
+      doc.circle(rx + 2, 42, 2, "F");
+      doc.setFontSize(8);
+      doc.setTextColor(12, 12, 20);
+      doc.setFont("helvetica", "bold");
+      doc.text("★", rx + 0.8, 42.6);
+
+      doc.setFontSize(8);
+      doc.setTextColor(240, 230, 200);
+      doc.setFont("helvetica", "bold");
+      doc.text("Ticket Tombola Offert", rx + 7, 40.5);
+      doc.setFontSize(7);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(176, 160, 128);
+      doc.text("1 ticket inclus avec votre entrée", rx + 7, 45);
+
+      // Avantage 3
+      doc.setFillColor(232, 201, 126);
+      doc.circle(rx + 2, 57, 2, "F");
+      doc.setFontSize(8);
+      doc.setTextColor(12, 12, 20);
+      doc.setFont("helvetica", "bold");
+      doc.text("✦", rx + 0.5, 57.6);
+
+      doc.setFontSize(8);
+      doc.setTextColor(240, 230, 200);
+      doc.setFont("helvetica", "bold");
+      doc.text("Chauffeur Privé Gratuit", rx + 7, 55.5);
+      doc.setFontSize(7);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(176, 160, 128);
+      doc.text("Réservez via WhatsApp :", rx + 7, 60);
+      doc.setTextColor(232, 201, 126);
+      doc.text("0663-596-644", rx + 7, 65);
+
+      // Footer right
+      doc.setFontSize(6);
+      doc.setTextColor(80, 75, 60);
+      doc.text("Billet nominatif — non cessible", rx, 95);
+
+      doc.save(`Billet_SemilacDays_${currentData.ticketNum}.pdf`);
     }
 
     function reset() {
       document.getElementById("name").value = "";
       document.getElementById("salon").value = "";
+      document.getElementById("phone").value = "";
       document.getElementById("guests").value = "1";
       document.getElementById("btn-confirm").disabled = true;
       document.getElementById("btn-decline").disabled = true;
       document.getElementById("hint").style.display = "block";
+      currentData = {};
       show("view-form");
     }
   </script>
