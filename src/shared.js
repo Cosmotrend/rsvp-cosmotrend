@@ -25,13 +25,27 @@ export function initParticles() {
 const CC = ['#F8A4C8','#D4A574','#FFFFFF','#ffdaec','#FFF8F5','#c47090','#ffc8de'];
 let cp = [];
 
-export function launchConfetti(ox, oy) {
+/* Gentle continuous confetti rain — call once, stops after `rounds` bursts */
+export function launchConfettiLoop(rounds = 4) {
+  let count = 0;
+  function burst() {
+    if (count >= rounds) return;
+    const ox = window.innerWidth * (0.2 + Math.random() * 0.6);
+    const oy = -10;
+    launchConfetti(ox, oy, 60);
+    count++;
+    setTimeout(burst, 1800);
+  }
+  setTimeout(burst, 300);
+}
+
+export function launchConfetti(ox, oy, n = 200) {
   const ccv = document.getElementById('ccv'), cx = ccv.getContext('2d');
   ccv.width = window.innerWidth; ccv.height = window.innerHeight;
   ccv.style.display = 'block';
   ox = ox ?? window.innerWidth/2;
   oy = oy ?? window.innerHeight*.44;
-  for (let i = 0; i < 200; i++) cp.push({ x:ox+(Math.random()-.5)*60, y:oy, vx:(Math.random()-.5)*15, vy:-(Math.random()*15+5), g:.38, dr:.99, s:Math.random()*9+3, c:CC[Math.floor(Math.random()*CC.length)], r:Math.random()*360, rs:(Math.random()-.5)*10, sh:Math.random()>.35?'r':'c', asp:.3+Math.random()*.5, li:1, dc:Math.random()*.008+.004 });
+  for (let i = 0; i < n; i++) cp.push({ x:ox+(Math.random()-.5)*60, y:oy, vx:(Math.random()-.5)*15, vy:-(Math.random()*15+5), g:.38, dr:.99, s:Math.random()*9+3, c:CC[Math.floor(Math.random()*CC.length)], r:Math.random()*360, rs:(Math.random()-.5)*10, sh:Math.random()>.35?'r':'c', asp:.3+Math.random()*.5, li:1, dc:Math.random()*.008+.004 });
   function ac() {
     cx.clearRect(0,0,ccv.width,ccv.height);
     cp = cp.filter(p => p.li>0);
