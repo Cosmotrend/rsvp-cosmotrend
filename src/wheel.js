@@ -1,5 +1,6 @@
 import { initParticles, launchConfetti, launchConfettiLoop } from './shared.js';
 
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxdFgoG_FAeX_TbmztcrLLigfA3OIiczGTZnDg0itZ1djTWHrObY0DbLOYwFqQgsTyd/exec';
 const MAX=2, N=16, ARC=360/N;
 
 // Premium beauty palette — dark rose/burgundy velvet, rose nacré accents
@@ -164,6 +165,13 @@ export function spin(){
   requestAnimationFrame(fr);
 }
 
+function sendWheelResult(code, prize, attempt) {
+  fetch(SCRIPT_URL+'?'+new URLSearchParams({
+    type:'wheel', ticket:code, prize:prize, attempt:String(attempt),
+    ts:new Date().toISOString()
+  }).toString(), {mode:'no-cors'}).catch(()=>{});
+}
+
 function showResult(winner,tries){
   const seg=SEGS[winner];
   document.getElementById('rl').textContent=seg.l;
@@ -182,6 +190,9 @@ function showResult(winner,tries){
       );
     });
   }
+
+  // Send to Google Sheets
+  sendWheelResult(CODE, seg.l, tries);
 
   // Vibrate + confetti loop
   setTimeout(()=>{

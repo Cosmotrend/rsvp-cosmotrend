@@ -67,6 +67,18 @@
             <label class="fl">Représentant *</label>
           </div>
         </div>
+        <div class="field">
+          <select id="fd" class="fi" onchange="cf();this.classList.add('v')">
+            <option value=""></option>
+            <option value="Jeudi 14 mai">Jeudi 14 mai</option>
+            <option value="Vendredi 15 mai">Vendredi 15 mai</option>
+            <option value="Samedi 16 mai">Samedi 16 mai</option>
+            <option value="Dimanche 17 mai">Dimanche 17 mai</option>
+            <option value="Lundi 18 mai">Lundi 18 mai</option>
+            <option value="Mardi 19 mai">Mardi 19 mai</option>
+          </select>
+          <label class="fl">Jour de venue *</label>
+        </div>
       </div>
       <div style="display:flex;gap:12px;margin-top:28px;">
         <button id="bc" class="btn-g" style="flex:2;" onclick="subAnimated('confirm')" disabled>
