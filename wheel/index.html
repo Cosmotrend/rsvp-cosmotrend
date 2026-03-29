@@ -7,92 +7,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{-webkit-font-smoothing:antialiased;}
-body{background:#020208;color:#f5edd8;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
-
-/* AURORA */
-.aurora{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-.blob{position:absolute;border-radius:50%;filter:blur(90px);}
-.b1{width:min(80vw,700px);height:min(80vw,700px);background:radial-gradient(ellipse,rgba(200,0,100,0.32) 0%,transparent 70%);top:-20%;right:-15%;animation:b1 26s ease-in-out infinite;}
-.b2{width:min(70vw,650px);height:min(70vw,650px);background:radial-gradient(ellipse,rgba(60,10,160,0.45) 0%,transparent 70%);bottom:-20%;left:-10%;animation:b2 30s ease-in-out infinite;}
-.b3{width:min(50vw,500px);height:min(50vw,500px);background:radial-gradient(ellipse,rgba(120,70,0,0.22) 0%,transparent 70%);top:40%;left:40%;animation:b3 22s ease-in-out infinite;}
-@keyframes b1{0%,100%{transform:translate(0,0) scale(1);}40%{transform:translate(-8%,10%) scale(1.08);}70%{transform:translate(5%,-6%) scale(.94);}}
-@keyframes b2{0%,100%{transform:translate(0,0) scale(1);}35%{transform:translate(8%,-8%) scale(1.1);}72%{transform:translate(-5%,5%) scale(.95);}}
-@keyframes b3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-10%,-10%) scale(1.06);}}
-.grain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");}
-
-#pcv,#ccv{position:fixed;inset:0;pointer-events:none;}
-#pcv{z-index:1;}
-#ccv{z-index:100;display:none;}
-
-.topbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:18px 32px;background:linear-gradient(to bottom,rgba(2,2,8,.92),transparent);display:flex;justify-content:center;}
-.topbar span{font-size:9px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,201,126,.3);}
-
-main{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:90px 20px 80px;}
-
-/* HEADER */
-.hdr{text-align:center;margin-bottom:48px;animation:fuUp .8s ease both;}
-.hdr-eye{font-size:9px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,201,126,.42);margin-bottom:12px;}
-.hdr-title{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,7vw,58px);font-weight:300;color:#f5edd8;line-height:1.05;}
-.hdr-title em{font-style:italic;background:linear-gradient(135deg,#c8902a,#e8c97e,#f7eabb);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.hdr-div{width:120px;height:1px;margin:14px auto 0;background:linear-gradient(90deg,transparent,rgba(232,201,126,.35),transparent);}
-
-/* GLASS */
-.glass{position:relative;background:rgba(8,4,22,.84);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);border:1px solid rgba(212,168,67,.14);border-radius:20px;box-shadow:0 0 0 1px rgba(212,168,67,.04),0 60px 120px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);}
-.glass::before{content:'';position:absolute;top:0;left:14%;right:14%;height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,.4),transparent);}
-
-/* BUTTONS */
-.btn-g{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#b8741d 0%,#d4a843 35%,#e8c97e 60%,#c8902a 100%);background-size:200% auto;color:#0a0518;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:16px 28px;border-radius:10px;border:none;cursor:pointer;transition:all .3s ease;box-shadow:0 4px 28px rgba(180,130,30,.35);position:relative;overflow:hidden;}
-.btn-g::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.18) 55%,transparent 65%);background-size:300% auto;background-position:200% center;transition:background-position .55s ease;}
-.btn-g:hover:not(:disabled)::after{background-position:-30% center;}
-.btn-g:hover:not(:disabled){box-shadow:0 8px 44px rgba(180,130,30,.55);transform:translateY(-2px);}
-.btn-g:disabled{opacity:.22;cursor:not-allowed;transform:none;}
-.btn-o{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:rgba(245,237,216,.38);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:14px 28px;border-radius:10px;border:1px solid rgba(245,237,216,.1);cursor:pointer;transition:all .25s ease;}
-.btn-o:hover{border-color:rgba(245,237,216,.22);color:rgba(245,237,216,.7);}
-
-/* CODE INPUT */
-.code-input{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(232,201,126,.15);border-radius:12px;padding:18px 20px;color:#e8c97e;font-family:'Courier New',monospace;font-size:24px;font-weight:700;letter-spacing:.22em;text-align:center;text-transform:uppercase;outline:none;transition:all .25s ease;-webkit-appearance:none;}
-.code-input:focus{border-color:rgba(232,201,126,.5);background:rgba(232,201,126,.04);box-shadow:0 0 0 4px rgba(232,201,126,.08),0 0 30px rgba(232,201,126,.1);}
-
-/* SPIN */
-.spin{width:40px;height:40px;border:2px solid rgba(232,201,126,.1);border-top-color:#e8c97e;border-radius:50%;animation:rot .8s linear infinite;}
-@keyframes rot{to{transform:rotate(360deg);}}
-
-/* WHEEL WRAP */
-.wheel-wrap{position:relative;display:inline-block;}
-/* Pointer */
-.pointer{position:absolute;top:-16px;left:50%;transform:translateX(-50%);z-index:10;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #e8c97e;filter:drop-shadow(0 3px 12px rgba(232,201,126,.7));}
-/* Glow ring behind wheel */
-.wheel-glow{position:absolute;inset:-12px;border-radius:50%;background:conic-gradient(from 0deg,#e8c97e,#ec008c,#e8c97e,#ec008c,#e8c97e);opacity:0;filter:blur(12px);transition:opacity .4s;animation:glowpulse 3s ease-in-out infinite;}
-@keyframes glowpulse{0%,100%{opacity:.12;}50%{opacity:.22;}}
-
-/* RESULT OVERLAY */
-.result-bg{position:fixed;inset:0;background:rgba(2,2,8,.85);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;animation:fi .4s ease both;}
-@keyframes fuUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fi{from{opacity:0;}to{opacity:1;}}
-@keyframes sIn{from{opacity:0;transform:scale(.85);}to{opacity:1;transform:scale(1);}}
-@keyframes fi{from{opacity:0}to{opacity:1}}
-
-/* DOTS */
-.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
-.dot-active{background:linear-gradient(135deg,#ec008c,#ff3dab);box-shadow:0 0 10px rgba(236,0,140,.55);}
-.dot-used{background:rgba(245,237,216,.12);border:1px solid rgba(245,237,216,.12);}
-</style>
+<link rel="stylesheet" href="/src/style.css"/>
 </head>
 <body>
-<div class="aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="aurora" aria-hidden="true">
+  <div class="blob b1-rose" style="width:min(80vw,700px);height:min(80vw,700px);top:-20%;right:-15%;left:auto;"></div>
+  <div class="blob b2-purple" style="width:min(70vw,650px);height:min(70vw,650px);bottom:-20%;left:-10%;top:auto;right:auto;"></div>
+  <div class="blob b3" style="width:min(50vw,500px);height:min(50vw,500px);top:40%;left:40%;"></div>
+</div>
 <div class="grain" aria-hidden="true"></div>
-<canvas id="pcv"></canvas>
-<canvas id="ccv"></canvas>
+<canvas id="pcv" style="position:fixed;inset:0;pointer-events:none;z-index:1;"></canvas>
+<canvas id="ccv" style="position:fixed;inset:0;pointer-events:none;z-index:100;display:none;"></canvas>
 <div class="topbar"><span>Semilac Days 2026 &nbsp;·&nbsp; Cosmotrend</span></div>
 
-<main>
-  <div class="hdr">
-    <p class="hdr-eye">Semilac Days 2026</p>
-    <h1 class="hdr-title">Roue de la <em>Fortune</em></h1>
-    <div class="hdr-div"></div>
+<main style="position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:90px 20px 80px;">
+  <div style="text-align:center;margin-bottom:48px;animation:fuUp .8s ease both;">
+    <p style="font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(232,201,126,.42);margin-bottom:12px;">Semilac Days 2026</p>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(38px,7vw,58px);font-weight:300;color:#f5edd8;line-height:1.05;">
+      Roue de la <em style="font-style:italic;background:linear-gradient(135deg,#c8902a,#e8c97e,#f7eabb);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Fortune</em>
+    </h1>
+    <div style="width:120px;height:1px;margin:14px auto 0;background:linear-gradient(90deg,transparent,rgba(232,201,126,.35),transparent);"></div>
   </div>
 
   <div style="width:100%;max-width:460px;">
@@ -104,10 +38,8 @@ main{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:c
       </div>
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:#f5edd8;margin-bottom:8px;">Entrez votre code billet</h2>
       <p style="font-size:12px;color:rgba(245,237,216,.36);margin-bottom:28px;letter-spacing:.04em;">Format &nbsp;·&nbsp; SD26-XXXX</p>
-
       <input id="ci" class="code-input" type="text" maxlength="9" placeholder="SD26-____" oninput="onci()"/>
-      <p id="ce" style="display:none;font-size:11px;color:rgba(236,0,140,.7);margin-top:10px;letter-spacing:.04em;"></p>
-
+      <p id="ce" style="display:none;font-size:11px;color:rgba(236,0,140,.7);margin-top:10px;"></p>
       <button id="bv" class="btn-g" style="width:100%;margin-top:20px;" onclick="validate()" disabled>
         Valider le code
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
@@ -125,17 +57,14 @@ main{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:c
       <div style="padding:32px 28px 36px;text-align:center;">
         <p id="wg" style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,216,.3);margin-bottom:10px;"></p>
         <div id="dots" style="display:flex;justify-content:center;gap:8px;margin-bottom:28px;"></div>
-
-        <div class="wheel-wrap" id="ww" style="margin-bottom:28px;">
+        <div style="position:relative;display:inline-block;margin-bottom:28px;">
           <div class="pointer"></div>
           <div class="wheel-glow"></div>
           <canvas id="wc" style="display:block;border-radius:50%;position:relative;z-index:2;"></canvas>
-          <!-- Center hub -->
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:6;width:48px;height:48px;border-radius:50%;background:radial-gradient(135deg,#2a0a50,#1a0530);border:2px solid rgba(232,201,126,.45);box-shadow:0 0 0 6px rgba(10,5,25,.8),0 0 20px rgba(232,201,126,.2);display:flex;align-items:center;justify-content:center;">
             <div style="width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#e8c97e,#c8902a);box-shadow:0 0 10px rgba(232,201,126,.6);"></div>
           </div>
         </div>
-
         <button id="bs" class="btn-g" style="width:100%;font-size:13px;padding:17px 28px;" onclick="spin()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/></svg>
           Tourner la roue !
@@ -154,7 +83,6 @@ main{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:c
         <button class="btn-o" style="width:100%;" onclick="back()">Utiliser un autre billet</button>
       </div>
     </div>
-
   </div>
 
   <footer style="margin-top:60px;text-align:center;">
@@ -162,29 +90,22 @@ main{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:c
   </footer>
 </main>
 
-<!-- RESULT OVERLAY (outside main) -->
-<div id="vr" style="display:none;" class="result-bg" onclick="">
+<!-- RESULT OVERLAY -->
+<div id="vr" style="display:none;" class="result-bg">
   <div style="width:100%;max-width:420px;animation:sIn .5s .1s ease both;opacity:0;animation-fill-mode:both;">
     <div class="glass" style="padding:52px 36px;text-align:center;position:relative;overflow:hidden;">
-      <!-- Glow bg -->
       <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:300px;height:300px;background:radial-gradient(ellipse,rgba(236,0,140,.18) 0%,transparent 70%);pointer-events:none;"></div>
-
-      <!-- Prize ring -->
       <div style="position:relative;width:150px;height:150px;margin:0 auto 28px;">
         <div style="position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(#c2006e,#ff3dab,#ec008c,#c2006e);opacity:.35;filter:blur(6px);"></div>
-        <div style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(#c2006e,#ff3dab,#ec008c,#c2006e);opacity:.15;"></div>
         <div style="width:150px;height:150px;border-radius:50%;background:linear-gradient(160deg,#1e0840,#2d1065,#1a0635);border:1.5px solid rgba(236,0,140,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;box-shadow:0 0 50px rgba(236,0,140,.25),inset 0 1px 0 rgba(255,255,255,.07);">
           <span id="rl" style="font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:#fff;line-height:1;"></span>
           <span style="font-size:8px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:3px;">GAGNÉ</span>
         </div>
       </div>
-
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:#f5edd8;margin-bottom:8px;">Félicitations !</h2>
       <p id="rd" style="font-size:14px;color:rgba(245,237,216,.55);margin-bottom:8px;"></p>
       <p id="rc" style="font-family:'Courier New',monospace;font-size:13px;font-weight:700;letter-spacing:.15em;color:#e8c97e;margin-bottom:32px;"></p>
-
       <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,.2),transparent);margin-bottom:28px;"></div>
-
       <button id="br" class="btn-g" style="width:100%;margin-bottom:12px;display:none;" onclick="retry()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
         2ème essai
@@ -194,220 +115,9 @@ main{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:c
   </div>
 </div>
 
-<script>
-/* PARTICLES */
-(function(){
-  const cv=document.getElementById('pcv'),x=cv.getContext('2d');
-  let W,H,ps=[];
-  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
-  window.addEventListener('resize',resize);resize();
-  function mp(){return{x:Math.random()*W,y:H+Math.random()*80,s:Math.random()*1.6+.3,vx:(Math.random()-.5)*.3,vy:-(Math.random()*.6+.2),o:Math.random()*.5+.1,tw:Math.random()*Math.PI*2,ts:Math.random()*.025+.008};}
-  for(let i=0;i<70;i++){const p=mp();p.y=Math.random()*H;ps.push(p);}
-  function fr(){x.clearRect(0,0,W,H);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.tw+=p.ts;if(p.y<-10||p.x<-10||p.x>W+10)Object.assign(p,mp());const a=p.o*(0.5+0.5*Math.sin(p.tw));x.save();x.globalAlpha=a;x.fillStyle='#e8c97e';x.shadowBlur=6;x.shadowColor='rgba(232,201,126,.65)';x.beginPath();x.arc(p.x,p.y,p.s,0,Math.PI*2);x.fill();x.restore();});requestAnimationFrame(fr);}
-  fr();
-})();
-
-/* CONFETTI */
-const ccv=document.getElementById('ccv'),cx=ccv.getContext('2d');
-let cp=[];
-const CC=['#E8C97E','#EC008C','#FFFFFF','#FF3DAB','#D4A843','#F7EAB5'];
-function launch(ox,oy){
-  ccv.width=window.innerWidth;ccv.height=window.innerHeight;
-  ccv.style.display='block';
-  for(let i=0;i<200;i++)cp.push({x:ox,y:oy,vx:(Math.random()-.5)*18,vy:-(Math.random()*18+4),g:.4,dr:.98,s:Math.random()*9+3,c:CC[Math.floor(Math.random()*CC.length)],r:Math.random()*360,rs:(Math.random()-.5)*12,sh:Math.random()>.35?'r':'c',asp:.3+Math.random()*.5,li:1,dc:Math.random()*.007+.004});
-  ac();
-}
-function ac(){cx.clearRect(0,0,ccv.width,ccv.height);cp=cp.filter(p=>p.li>0);cp.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=p.dr;p.r+=p.rs;p.li-=p.dc;cx.save();cx.globalAlpha=p.li;cx.fillStyle=p.c;cx.translate(p.x,p.y);cx.rotate(p.r*Math.PI/180);if(p.sh==='r')cx.fillRect(-p.s/2,-p.s*p.asp/2,p.s,p.s*p.asp);else{cx.beginPath();cx.arc(0,0,p.s/2,0,Math.PI*2);cx.fill();}cx.restore();});if(cp.length>0)requestAnimationFrame(ac);else ccv.style.display='none';}
-
-/* WHEEL LOGIC */
-const MAX=2,N=16,ARC=360/N;
-const PAL=[
-  {l:'-25%',d:'-25% sur votre commande',c1:'#ff2da8',c2:'#a8005a'},
-  {l:'-30%',d:'-30% sur votre commande',c1:'#cc0078',c2:'#7a0046'},
-  {l:'-35%',d:'-35% sur votre commande',c1:'#960050',c2:'#580030'},
-  {l:'-40%',d:'-40% sur votre commande',c1:'#680038',c2:'#3a0020'},
-];
-const SEGS=Array.from({length:N},(_,i)=>PAL[i%PAL.length]);
-let CODE='',ROT=0,SPIN=false,SZ=320,DPR=1;
-
-const getT=c=>parseInt(localStorage.getItem('whl_'+c)||'0');
-const setT=(c,n)=>localStorage.setItem('whl_'+c,String(n));
-
-function sv(id){['vl','vload','vw','vb','vr'].forEach(v=>{document.getElementById(v).style.display=v===id?'':'none';});}
-
-function onci(){
-  const el=document.getElementById('ci');
-  el.value=el.value.toUpperCase().replace(/[^A-Z0-9-]/g,'');
-  document.getElementById('bv').disabled=!/^SD26-\d{4}$/.test(el.value);
-  document.getElementById('ce').style.display='none';
-}
-
-function validate(){
-  const code=document.getElementById('ci').value.toUpperCase().trim();
-  if(!/^SD26-\d{4}$/.test(code))return;
-  CODE=code;sv('vload');
-  setTimeout(()=>{
-    if(getT(code)>=MAX){sv('vb');}
-    else{initWheel(code,getT(code));sv('vw');}
-  },550);
-}
-
-function initWheel(code,tries){
-  document.getElementById('wg').textContent='Bonne chance — '+code;
-  renderDots(tries);
-  const ww=document.getElementById('ww');
-  const available=Math.min(window.innerWidth-60,380);
-  SZ=Math.min(available,360);
-  DPR=window.devicePixelRatio||1;
-  const cv=document.getElementById('wc');
-  cv.width=SZ*DPR;cv.height=SZ*DPR;
-  cv.style.width=SZ+'px';cv.style.height=SZ+'px';
-  ROT=0;draw(0);
-  document.getElementById('bs').disabled=false;
-}
-
-function renderDots(tries){
-  const w=document.getElementById('dots');
-  w.innerHTML='';
-  for(let i=0;i<MAX;i++){
-    const d=document.createElement('div');
-    d.className='dot '+(i<tries?'dot-used':'dot-active');
-    w.appendChild(d);
-  }
-}
-
-function draw(rotDeg){
-  const cv=document.getElementById('wc');
-  const ctx=cv.getContext('2d');
-  ctx.save();ctx.scale(DPR,DPR);
-  ctx.clearRect(0,0,SZ,SZ);
-  const cx=SZ/2,cy=SZ/2,r=SZ/2-5;
-  const rotR=(rotDeg-90)*Math.PI/180;
-
-  for(let i=0;i<N;i++){
-    const sa=rotR+(i*ARC)*Math.PI/180;
-    const ea=rotR+((i+1)*ARC)*Math.PI/180;
-    const mid=rotR+(i+.5)*ARC*Math.PI/180;
-    const seg=SEGS[i];
-
-    /* Segment fill — radial gradient inner bright → outer dark */
-    const grad=ctx.createRadialGradient(cx,cy,r*.15,cx,cy,r);
-    grad.addColorStop(0,seg.c1);
-    grad.addColorStop(1,seg.c2);
-
-    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,sa,ea);ctx.closePath();
-    ctx.fillStyle=grad;ctx.fill();
-
-    /* Subtle highlight on each segment */
-    const hx=cx+(r*.55)*Math.cos(mid),hy=cy+(r*.55)*Math.sin(mid);
-    const hgrad=ctx.createRadialGradient(hx,hy,0,hx,hy,r*.28);
-    hgrad.addColorStop(0,'rgba(255,255,255,0.12)');
-    hgrad.addColorStop(1,'rgba(255,255,255,0)');
-    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,sa,ea);ctx.closePath();
-    ctx.fillStyle=hgrad;ctx.fill();
-
-    /* Divider */
-    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+r*Math.cos(sa),cy+r*Math.sin(sa));
-    ctx.strokeStyle='rgba(0,0,0,0.45)';ctx.lineWidth=1.5;ctx.stroke();
-  }
-
-  /* Inner dark ring (depth) */
-  ctx.beginPath();ctx.arc(cx,cy,r-4,0,Math.PI*2);
-  ctx.strokeStyle='rgba(0,0,0,0.35)';ctx.lineWidth=10;ctx.stroke();
-
-  /* Outer gold ring */
-  const ring=ctx.createLinearGradient(0,0,SZ,SZ);
-  ring.addColorStop(0,'rgba(232,201,126,0.9)');
-  ring.addColorStop(.25,'rgba(200,144,42,0.7)');
-  ring.addColorStop(.5,'rgba(247,234,187,0.95)');
-  ring.addColorStop(.75,'rgba(200,144,42,0.7)');
-  ring.addColorStop(1,'rgba(232,201,126,0.9)');
-  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
-  ctx.strokeStyle=ring;ctx.lineWidth=4;ctx.stroke();
-
-  /* Outer shadow ring */
-  ctx.beginPath();ctx.arc(cx,cy,r+3,0,Math.PI*2);
-  ctx.strokeStyle='rgba(0,0,0,0.6)';ctx.lineWidth=4;ctx.stroke();
-
-  /* Labels */
-  for(let i=0;i<N;i++){
-    const mid=rotR+(i+.5)*ARC*Math.PI/180;
-    const lx=cx+(r*.67)*Math.cos(mid);
-    const ly=cy+(r*.67)*Math.sin(mid);
-    const seg=SEGS[i];
-    ctx.save();ctx.translate(lx,ly);ctx.rotate(mid+Math.PI/2);
-    /* Pill bg */
-    const pw=46,ph=19,pr=5;
-    ctx.fillStyle='rgba(0,0,0,0.3)';
-    ctx.beginPath();ctx.roundRect(-pw/2,-ph/2,pw,ph,pr);ctx.fill();
-    /* Text */
-    ctx.fillStyle='#fff';ctx.font='bold 13px Arial';
-    ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.shadowColor='rgba(0,0,0,0.6)';ctx.shadowBlur=3;
-    ctx.fillText(seg.l,0,0);
-    ctx.restore();
-  }
-
-  ctx.restore();
-}
-
-function spin(){
-  if(SPIN)return;
-  SPIN=true;
-  document.getElementById('bs').disabled=true;
-  if(navigator.vibrate)navigator.vibrate([30,20,30]);
-  const winner=Math.floor(Math.random()*N);
-  const extra=6+Math.floor(Math.random()*4);
-  const target=extra*360+(360-winner*ARC-ARC/2);
-  const dur=5500+Math.random()*1500;
-  const ease=t=>1-Math.pow(1-t,4.8);
-  const start=ROT,t0=performance.now();
-  function fr(now){
-    const t=Math.min((now-t0)/dur,1);
-    ROT=start+target*ease(t);
-    draw(ROT%360);
-    if(t<1){requestAnimationFrame(fr);}
-    else{
-      ROT=ROT%360;SPIN=false;
-      const tries=getT(CODE)+1;
-      setT(CODE,tries);
-      showResult(winner,tries);
-    }
-  }
-  requestAnimationFrame(fr);
-}
-
-function showResult(winner,tries){
-  const seg=SEGS[winner];
-  document.getElementById('rl').textContent=seg.l;
-  document.getElementById('rd').textContent=seg.d;
-  document.getElementById('rc').textContent=CODE;
-  const br=document.getElementById('br');
-  br.style.display=tries<MAX?'':'none';
-  sv('vr');
-  /* Confetti from center of screen */
-  setTimeout(()=>{
-    launch(window.innerWidth/2,window.innerHeight*.35);
-    if(navigator.vibrate)navigator.vibrate([50,30,80,30,50]);
-  },300);
-}
-
-function retry(){
-  const tries=getT(CODE);
-  if(tries>=MAX){sv('vb');return;}
-  SPIN=false;
-  initWheel(CODE,tries);
-  sv('vw');
-}
-
-function back(){
-  CODE='';
-  document.getElementById('ci').value='';
-  document.getElementById('bv').disabled=true;
-  sv('vl');
-}
-
-sv('vl');
+<script type="module">
+  import { onci, validate, spin, retry, back } from '/src/wheel.js';
+  window.onci=onci; window.validate=validate; window.spin=spin; window.retry=retry; window.back=back;
 </script>
 </body>
 </html>

@@ -7,115 +7,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-body{background:#020208;color:#f5edd8;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
-::-webkit-scrollbar{width:3px;}
-::-webkit-scrollbar-thumb{background:#3a2200;border-radius:2px;}
-
-/* AURORA */
-.aurora{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-.blob{position:absolute;border-radius:50%;filter:blur(90px);}
-.b1{width:min(80vw,750px);height:min(80vw,750px);background:radial-gradient(ellipse,rgba(72,12,175,0.55) 0%,transparent 70%);top:-25%;left:-15%;animation:b1 28s ease-in-out infinite;}
-.b2{width:min(65vw,650px);height:min(65vw,650px);background:radial-gradient(ellipse,rgba(210,0,110,0.22) 0%,transparent 70%);top:35%;right:-18%;animation:b2 22s ease-in-out infinite;}
-.b3{width:min(55vw,550px);height:min(55vw,550px);background:radial-gradient(ellipse,rgba(130,75,0,0.28) 0%,transparent 70%);bottom:-5%;left:18%;animation:b3 34s ease-in-out infinite;}
-@keyframes b1{0%,100%{transform:translate(0,0) scale(1);}30%{transform:translate(6%,-10%) scale(1.08);}65%{transform:translate(9%,6%) scale(0.94);}}
-@keyframes b2{0%,100%{transform:translate(0,0) scale(1);}38%{transform:translate(-8%,8%) scale(1.1);}72%{transform:translate(5%,-6%) scale(0.93);}}
-@keyframes b3{0%,100%{transform:translate(0,0) scale(1);}42%{transform:translate(-6%,-6%) scale(1.06);}80%{transform:translate(8%,4%) scale(0.97);}}
-
-/* GRAIN */
-.grain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");}
-
-/* CANVASES */
-#pcv,#ccv{position:fixed;inset:0;pointer-events:none;}
-#pcv{z-index:1;}
-#ccv{z-index:100;display:none;}
-
-/* TOP BAR */
-.topbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:18px 32px;background:linear-gradient(to bottom,rgba(2,2,8,.92),transparent);display:flex;justify-content:center;}
-.topbar span{font-size:9px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,201,126,0.35);}
-
-/* MAIN */
-main{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:90px 20px 80px;}
-
-/* HERO */
-.hero{text-align:center;margin-bottom:64px;max-width:640px;}
-.badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(232,201,126,0.22);border-radius:100px;padding:7px 20px;margin-bottom:36px;background:rgba(232,201,126,0.04);backdrop-filter:blur(10px);animation:fuUp .8s ease both;}
-.bdot{width:5px;height:5px;border-radius:50%;background:#e8c97e;box-shadow:0 0 12px rgba(232,201,126,.9);animation:bpulse 2s ease-in-out infinite;}
-.badge span{font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#e8c97e;}
-@keyframes bpulse{0%,100%{box-shadow:0 0 12px rgba(232,201,126,.9);}50%{box-shadow:0 0 22px rgba(232,201,126,.4);}}
-
-.htitle{animation:fuUp .9s .15s ease both;opacity:0;}
-.hs{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(68px,13vw,112px);font-weight:300;font-style:italic;line-height:.88;background:linear-gradient(150deg,#c8902a 0%,#e8c97e 28%,#f7eabb 52%,#d4a843 78%,#c8902a 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fuUp .9s .15s ease both,sgold 7s 1.2s linear infinite;}
-.hd{display:block;font-family:'Montserrat',sans-serif;font-size:clamp(28px,5.5vw,50px);font-weight:800;letter-spacing:0.38em;text-transform:uppercase;color:#f5edd8;text-shadow:0 0 60px rgba(245,237,216,.18);}
-@keyframes sgold{0%{background-position:0% center;}100%{background-position:200% center;}}
-
-.hedition{margin-top:14px;font-size:11px;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:rgba(232,201,126,.55);animation:fuUp .9s .3s ease both;opacity:0;}
-.hdiv{width:160px;height:1px;margin:20px auto;background:linear-gradient(90deg,transparent,rgba(232,201,126,.4),transparent);animation:fi 1s .4s ease both;opacity:0;}
-.hinfo{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,237,216,.38);animation:fuUp .9s .45s ease both;opacity:0;}
-.hinfo em{font-style:normal;color:rgba(232,201,126,.45);margin:0 8px;}
-
-/* GLASS CARD */
-.glass{position:relative;background:rgba(8,4,22,.84);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);border:1px solid rgba(212,168,67,.14);border-radius:20px;box-shadow:0 0 0 1px rgba(212,168,67,.04),0 60px 120px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);}
-.glass::before{content:'';position:absolute;top:0;left:14%;right:14%;height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,.45),transparent);}
-
-/* FIELDS */
-.field{position:relative;}
-.fi{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(232,201,126,.11);border-radius:10px;padding:20px 16px 8px;color:#f5edd8;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:400;outline:none;transition:border-color .25s,background .25s,box-shadow .25s;-webkit-appearance:none;appearance:none;}
-.fi:focus{border-color:rgba(232,201,126,.42);background:rgba(255,255,255,.05);box-shadow:0 0 0 4px rgba(232,201,126,.06),0 0 24px rgba(232,201,126,.08);}
-.fi.v{border-color:rgba(232,201,126,.17);}
-.fl{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,237,216,.3);pointer-events:none;transition:all .2s cubic-bezier(.4,0,.2,1);}
-.fi:focus~.fl,.fi.v~.fl{top:9px;transform:none;font-size:8px;letter-spacing:.16em;color:rgba(232,201,126,.7);}
-select.fi{padding-top:8px;padding-bottom:8px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(232,201,126,0.45)'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
-select.fi option{background:#0a0518;color:#f5edd8;}
-
-/* BUTTONS */
-.btn-g{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#b8741d 0%,#d4a843 35%,#e8c97e 60%,#c8902a 100%);background-size:200% auto;color:#0a0518;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:15px 28px;border-radius:10px;border:none;cursor:pointer;transition:all .3s ease;box-shadow:0 4px 28px rgba(180,130,30,.35);position:relative;overflow:hidden;}
-.btn-g::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.18) 55%,transparent 65%);background-size:300% auto;background-position:200% center;transition:background-position .55s ease;}
-.btn-g:hover:not(:disabled)::after{background-position:-30% center;}
-.btn-g:hover:not(:disabled){box-shadow:0 8px 44px rgba(180,130,30,.55);transform:translateY(-2px);background-position:100% center;}
-.btn-g:disabled{opacity:.22;cursor:not-allowed;transform:none;}
-.btn-o{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:rgba(245,237,216,.38);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:15px 28px;border-radius:10px;border:1px solid rgba(245,237,216,.1);cursor:pointer;transition:all .25s ease;}
-.btn-o:hover:not(:disabled){border-color:rgba(245,237,216,.22);color:rgba(245,237,216,.7);background:rgba(255,255,255,.02);}
-.btn-o:disabled{opacity:.2;cursor:not-allowed;}
-
-/* SPINNER */
-.spin{width:40px;height:40px;border:2px solid rgba(232,201,126,.1);border-top-color:#e8c97e;border-radius:50%;animation:rot .8s linear infinite;}
-@keyframes rot{to{transform:rotate(360deg);}}
-
-/* PERK */
-.perk{display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px;transition:.3s;}
-.perk:hover{border-color:rgba(232,201,126,.14);background:rgba(232,201,126,.02);}
-
-/* ANIMS */
-@keyframes fuUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fi{from{opacity:0;}to{opacity:1;}}
-@keyframes sIn{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
-@keyframes chk{from{stroke-dashoffset:54;}to{stroke-dashoffset:0;}}
-
-.chkc{animation:sIn .4s .1s ease both;}
-.chkp{stroke-dasharray:54;stroke-dashoffset:54;animation:chk .5s .45s ease-out forwards;}
-</style>
+<link rel="stylesheet" href="/src/style.css"/>
 </head>
 <body>
 <div class="aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
 <div class="grain" aria-hidden="true"></div>
-<canvas id="pcv"></canvas>
-<canvas id="ccv"></canvas>
+<canvas id="pcv" style="position:fixed;inset:0;pointer-events:none;z-index:1;"></canvas>
+<canvas id="ccv" style="position:fixed;inset:0;pointer-events:none;z-index:100;display:none;"></canvas>
+<div class="topbar"><span>Cosmotrend &nbsp;·&nbsp; Casablanca &nbsp;·&nbsp; 2026</span></div>
 
-<div class="topbar" aria-hidden="true"><span>Cosmotrend &nbsp;·&nbsp; Casablanca &nbsp;·&nbsp; 2026</span></div>
-
-<main>
-  <header class="hero">
-    <div class="badge"><span class="bdot"></span><span>Invitation Exclusive</span></div>
-    <h1>
-      <span class="hs">Semilac</span>
-      <span class="hd">Days</span>
+<main style="position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:90px 20px 80px;">
+  <header style="text-align:center;margin-bottom:64px;max-width:640px;animation:fuUp .8s ease both;">
+    <div style="display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(232,201,126,.22);border-radius:100px;padding:7px 20px;margin-bottom:36px;background:rgba(232,201,126,.04);backdrop-filter:blur(10px);">
+      <span style="width:5px;height:5px;border-radius:50%;background:#e8c97e;box-shadow:0 0 12px rgba(232,201,126,.9);animation:bpulse 2s ease-in-out infinite;"></span>
+      <span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#e8c97e;">Invitation Exclusive</span>
+    </div>
+    <h1 style="margin-bottom:4px;">
+      <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(68px,13vw,112px);font-weight:300;font-style:italic;line-height:.88;background:linear-gradient(150deg,#c8902a 0%,#e8c97e 28%,#f7eabb 52%,#d4a843 78%,#c8902a 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fuUp .9s .15s ease both,sgold 7s 1.2s linear infinite;">Semilac</span>
+      <span style="display:block;font-family:'Montserrat',sans-serif;font-size:clamp(28px,5.5vw,50px);font-weight:800;letter-spacing:.38em;text-transform:uppercase;color:#f5edd8;">Days</span>
     </h1>
-    <p class="hedition">2ème Édition</p>
-    <div class="hdiv"></div>
-    <p class="hinfo">14 — 19 Mai 2026 <em>·</em> Showroom Cosmotrend <em>·</em> Casablanca</p>
+    <p style="margin-top:14px;font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(232,201,126,.55);animation:fuUp .9s .3s ease both;">2ème Édition</p>
+    <div style="width:160px;height:1px;margin:20px auto;background:linear-gradient(90deg,transparent,rgba(232,201,126,.4),transparent);animation:fi 1s .4s ease both;"></div>
+    <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,216,.38);animation:fuUp .9s .45s ease both;">
+      14 — 19 Mai 2026 <em style="font-style:normal;color:rgba(232,201,126,.45);margin:0 8px;">·</em> Showroom Cosmotrend <em style="font-style:normal;color:rgba(232,201,126,.45);margin:0 8px;">·</em> Casablanca
+    </p>
   </header>
 
   <div style="width:100%;max-width:520px;">
@@ -159,15 +74,15 @@ select.fi option{background:#0a0518;color:#f5edd8;}
     <!-- SUCCESS -->
     <div id="vs" style="display:none;" class="glass">
       <div style="padding:52px 36px;text-align:center;">
-        <div class="chkc" style="margin:0 auto 28px;">
+        <div style="animation:sIn .4s .1s ease both;margin:0 auto 28px;">
           <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
             <circle cx="36" cy="36" r="34" stroke="rgba(232,201,126,.12)" stroke-width="1.5"/>
-            <circle cx="36" cy="36" r="34" stroke="url(#gr)" stroke-width="1.5" stroke-dasharray="214" stroke-dashoffset="0" opacity=".55"/>
-            <polyline class="chkp" points="20,36 30,46 52,26" stroke="#e8c97e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="36" cy="36" r="34" stroke="url(#gr)" stroke-width="1.5" stroke-dasharray="214" opacity=".55"/>
+            <polyline points="20,36 30,46 52,26" stroke="#e8c97e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" style="stroke-dasharray:54;stroke-dashoffset:54;animation:chk .5s .45s ease-out forwards;"/>
             <defs><linearGradient id="gr" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#c8902a"/><stop offset="50%" stop-color="#e8c97e"/><stop offset="100%" stop-color="#c8902a"/></linearGradient></defs>
           </svg>
         </div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:#f5edd8;margin-bottom:8px;letter-spacing:-.01em;">Votre place est réservée</h2>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:#f5edd8;margin-bottom:8px;">Votre place est réservée</h2>
         <p style="font-size:12px;color:rgba(245,237,216,.38);letter-spacing:.07em;margin-bottom:36px;">Nous avons hâte de vous accueillir</p>
         <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,.22),transparent);margin-bottom:32px;"></div>
         <p style="font-size:9px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(245,237,216,.22);margin-bottom:12px;">Numéro de billet</p>
@@ -205,89 +120,9 @@ select.fi option{background:#0a0518;color:#f5edd8;}
   </footer>
 </main>
 
-<script>
-/* PARTICLES */
-(function(){
-  const cv=document.getElementById('pcv'),x=cv.getContext('2d');
-  let W,H,ps=[];
-  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
-  window.addEventListener('resize',resize);resize();
-  function mp(){return{x:Math.random()*W,y:H+Math.random()*80,s:Math.random()*1.8+.3,vx:(Math.random()-.5)*.35,vy:-(Math.random()*.65+.2),o:Math.random()*.55+.1,tw:Math.random()*Math.PI*2,ts:Math.random()*.025+.008};}
-  for(let i=0;i<75;i++){const p=mp();p.y=Math.random()*H;ps.push(p);}
-  function fr(){
-    x.clearRect(0,0,W,H);
-    ps.forEach(p=>{
-      p.x+=p.vx;p.y+=p.vy;p.tw+=p.ts;
-      if(p.y<-10||p.x<-10||p.x>W+10)Object.assign(p,mp());
-      const a=p.o*(0.5+0.5*Math.sin(p.tw));
-      x.save();x.globalAlpha=a;x.fillStyle='#e8c97e';
-      x.shadowBlur=7;x.shadowColor='rgba(232,201,126,.7)';
-      x.beginPath();x.arc(p.x,p.y,p.s,0,Math.PI*2);x.fill();x.restore();
-    });
-    requestAnimationFrame(fr);
-  }
-  fr();
-})();
-
-/* CONFETTI */
-const ccv=document.getElementById('ccv'),cx=ccv.getContext('2d');
-let cp=[];
-const CC=['#E8C97E','#EC008C','#FFFFFF','#F7EAB5','#FF3DAB','#D4A843','#B8E8FF'];
-function launch(){
-  ccv.width=window.innerWidth;ccv.height=window.innerHeight;
-  ccv.style.display='block';
-  const ox=window.innerWidth/2,oy=window.innerHeight*.44;
-  for(let i=0;i<200;i++)cp.push({x:ox+(Math.random()-.5)*60,y:oy,vx:(Math.random()-.5)*15,vy:-(Math.random()*15+5),g:.38,dr:.99,s:Math.random()*9+3,c:CC[Math.floor(Math.random()*CC.length)],r:Math.random()*360,rs:(Math.random()-.5)*10,sh:Math.random()>.35?'r':'c',asp:.3+Math.random()*.5,li:1,dc:Math.random()*.008+.004});
-  ac();
-}
-function ac(){
-  cx.clearRect(0,0,ccv.width,ccv.height);
-  cp=cp.filter(p=>p.li>0);
-  cp.forEach(p=>{
-    p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=p.dr;p.r+=p.rs;p.li-=p.dc;
-    cx.save();cx.globalAlpha=p.li;cx.fillStyle=p.c;
-    cx.translate(p.x,p.y);cx.rotate(p.r*Math.PI/180);
-    if(p.sh==='r')cx.fillRect(-p.s/2,-p.s*p.asp/2,p.s,p.s*p.asp);
-    else{cx.beginPath();cx.arc(0,0,p.s/2,0,Math.PI*2);cx.fill();}
-    cx.restore();
-  });
-  if(cp.length>0)requestAnimationFrame(ac);
-  else ccv.style.display='none';
-}
-
-/* FORM */
-const SU='https://script.google.com/macros/s/AKfycbxdFgoG_FAeX_TbmztcrLLigfA3OIiczGTZnDg0itZ1djTWHrObY0DbLOYwFqQgsTyd/exec';
-let tk='';
-function mv(el){el.value.trim()?el.classList.add('v'):el.classList.remove('v');}
-function cf(){
-  const ok=['fn','fs','fc','fp','fr'].every(id=>document.getElementById(id).value.trim()!=='');
-  document.getElementById('bc').disabled=!ok;
-  document.getElementById('bd').disabled=!ok;
-}
-function sv(id){['vf','vl','vs','vd'].forEach(v=>{document.getElementById(v).style.display=v===id?'':'none';});}
-function sub(t){
-  const n=document.getElementById('fn').value.trim(),s=document.getElementById('fs').value.trim(),c=document.getElementById('fc').value.trim(),p=document.getElementById('fp').value.trim(),g=document.getElementById('fg').value,r=document.getElementById('fr').value;
-  tk='SD26-'+String(Math.floor(1000+Math.random()*9000));
-  fetch(SU+'?'+new URLSearchParams({name:n,salon:s,city:c,phone:p,guests:g,rep:r,type:t,ticket:tk}).toString(),{mode:'no-cors'}).catch(()=>{});
-  sv('vl');
-  setTimeout(()=>{if(t==='confirm'){document.getElementById('td').textContent=tk;sv('vs');setTimeout(launch,350);}else sv('vd');},1400);
-}
-function rf(){
-  ['fn','fs','fc','fp'].forEach(id=>{const el=document.getElementById(id);el.value='';el.classList.remove('v');});
-  document.getElementById('fr').value='';document.getElementById('fr').classList.remove('v');
-  document.getElementById('fg').value='1';
-  document.getElementById('bc').disabled=true;document.getElementById('bd').disabled=true;
-  sv('vf');
-}
-
-/* TICKET */
-function openTicket(){
-  const n=document.getElementById('fn').value.trim(),s=document.getElementById('fs').value.trim(),c=document.getElementById('fc').value.trim(),g=document.getElementById('fg').value,r=document.getElementById('fr').value,t=tk;
-  const w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Billet VIP — ${t}</title><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/><style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#e2ddd5;font-family:'Montserrat',sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;}.ticket{width:100%;max-width:610px;overflow:hidden;border-radius:3px;box-shadow:0 40px 100px rgba(0,0,0,0.28),0 10px 30px rgba(0,0,0,0.15);}.th{background:linear-gradient(135deg,#0c0422 0%,#1c0738 45%,#280d52 65%,#0c0422 100%);padding:18px 38px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;}.th::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(105deg,transparent,transparent 40px,rgba(232,201,126,0.025) 40px,rgba(232,201,126,0.025) 41px);}.thc{font-size:11px;font-weight:700;letter-spacing:0.22em;color:rgba(232,201,126,0.88);text-transform:uppercase;position:relative;z-index:1;}.tht{font-size:9px;font-weight:600;letter-spacing:0.3em;color:rgba(255,255,255,0.32);text-transform:uppercase;position:relative;z-index:1;}.hero{background:linear-gradient(160deg,#0c0422 0%,#1c0738 30%,#2a1060 55%,#180840 80%,#0c0422 100%);padding:54px 38px 46px;text-align:center;position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;top:-130px;left:50%;transform:translateX(-50%);width:560px;height:420px;background:radial-gradient(ellipse,rgba(232,201,126,0.13) 0%,transparent 65%);}.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,0.28),transparent);}.eyebrow{font-size:9px;font-weight:600;letter-spacing:0.42em;text-transform:uppercase;color:rgba(232,201,126,0.52);margin-bottom:22px;display:flex;align-items:center;justify-content:center;gap:14px;position:relative;}.eyebrow::before,.eyebrow::after{content:'✦';color:rgba(232,201,126,0.3);font-size:8px;}.htl{font-family:'Cormorant Garamond',serif;line-height:1;margin-bottom:6px;position:relative;}.hs{display:block;font-size:64px;font-weight:300;font-style:italic;color:#f5edd8;letter-spacing:-0.01em;}.hd{display:block;font-size:26px;font-weight:800;letter-spacing:0.45em;text-transform:uppercase;color:rgba(245,237,216,0.65);margin-top:2px;}.edition{font-size:9px;font-weight:600;letter-spacing:0.38em;text-transform:uppercase;color:rgba(232,201,126,0.48);margin-top:14px;margin-bottom:24px;position:relative;}.gline{height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,0.38),transparent);max-width:200px;margin:0 auto 24px;}.date{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:400;color:#e8c97e;letter-spacing:0.06em;margin-bottom:8px;position:relative;}.place{font-size:9px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(255,255,255,0.3);position:relative;}.gs{background:#fff;padding:28px 38px;}.gl{font-size:8px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:#c0b5aa;margin-bottom:6px;}.gn{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:#180840;line-height:1.08;margin-bottom:18px;}.gm{display:flex;flex-wrap:wrap;gap:18px 28px;}.mk{font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#c0b5aa;margin-bottom:3px;}.mv{font-size:12px;font-weight:600;color:#280d52;}.perf{position:relative;overflow:visible;background:#fff;}.pi{height:1px;background:repeating-linear-gradient(90deg,#ddd 0,#ddd 7px,transparent 7px,transparent 13px);margin:0 1px;}.perf::before,.perf::after{content:'';position:absolute;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:#e2ddd5;z-index:1;}.perf::before{left:-2px;}.perf::after{right:-2px;}.perks{background:#fff;padding:22px 38px 26px;}.pkl{font-size:8px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#c0b5aa;margin-bottom:14px;}.pkg{display:flex;gap:12px;}.pk{flex:1;padding:14px 10px 12px;background:#faf7f3;border-radius:8px;border:1px solid #e8e0d5;text-align:center;}.pki{font-size:22px;margin-bottom:8px;}.pkv{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#180840;line-height:1;}.pkd{font-size:8px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#b0a598;margin-top:3px;}.logos{background:#f5f1eb;padding:18px 38px;display:flex;align-items:center;justify-content:center;gap:32px;border-top:1px solid #e8e0d5;}.lph{display:flex;flex-direction:column;align-items:center;gap:5px;opacity:0.3;}.lphb{width:50px;height:25px;background:#b8b0a5;border-radius:3px;}.lph span{font-size:7px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#a09890;}.tf{background:linear-gradient(135deg,#0c0422 0%,#1c0738 45%,#280d52 65%,#0c0422 100%);padding:14px 38px;display:flex;align-items:center;justify-content:space-between;}.tfc{font-size:13px;font-weight:800;letter-spacing:0.2em;color:#e8c97e;}.tfn{font-size:8px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);}.pb{display:block;width:calc(100% - 40px);max-width:570px;margin:22px auto;padding:14px;background:linear-gradient(135deg,#b8741d,#d4a843,#e8c97e,#c8902a);background-size:200%;color:#0c0422;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:none;border-radius:8px;cursor:pointer;transition:background-position .4s;box-shadow:0 4px 24px rgba(180,130,30,0.3);}.pb:hover{background-position:100%;}@media print{.pb{display:none;}.page{padding:0;min-height:auto;}.ticket{box-shadow:none;max-width:none;}}</style></head><body><div class="page"><div class="ticket"><div class="th"><span class="thc">${t}</span><span class="tht">Semilac Days 2026</span></div><div class="hero"><p class="eyebrow">Billet VIP &nbsp;·&nbsp; Invitation Officielle</p><h1 class="htl"><span class="hs">Semilac</span><span class="hd">Days</span></h1><p class="edition">2ème Édition</p><div class="gline"></div><p class="date">14 — 19 Mai 2026</p><p class="place">Showroom Cosmotrend &nbsp;·&nbsp; Casablanca</p></div><div class="gs"><p class="gl">Titulaire du billet</p><p class="gn">${n}</p><div class="gm"><div><p class="mk">Salon / Institut</p><p class="mv">${s}</p></div><div><p class="mk">Ville</p><p class="mv">${c}</p></div><div><p class="mk">Personnes</p><p class="mv">${g}</p></div><div><p class="mk">Représentant</p><p class="mv">${r}</p></div></div></div><div class="perf"><div class="pi"></div></div><div class="perks"><p class="pkl">Avantages inclus</p><div class="pkg"><div class="pk"><div class="pki">🎫</div><div class="pkv">-25%</div><div class="pkd">Sur commandes</div></div><div class="pk"><div class="pki">⭐</div><div class="pkv">Tombola</div><div class="pkd">Ticket offert</div></div><div class="pk"><div class="pki">🚗</div><div class="pkv">VTC</div><div class="pkd">Chauffeur offert</div></div></div></div><div class="logos"><div class="lph"><div class="lphb"></div><span>Semilac Days</span></div><div class="lph"><div class="lphb"></div><span>Semilac</span></div><div class="lph"><div class="lphb"></div><span>Footlogix</span></div><div class="lph"><div class="lphb"></div><span>Semilac Académie</span></div></div><div class="tf"><span class="tfc">${t}</span><span class="tfn">Billet nominatif · non cessible</span></div></div></div><button class="pb" onclick="window.print()">Enregistrer en PDF</button></body></html>`);
-  w.document.close();
-}
-cf();
+<script type="module">
+  import { mv, cf, sub, rf, openTicket } from '/src/rsvp.js';
+  window.mv=mv; window.cf=cf; window.sub=sub; window.rf=rf; window.openTicket=openTicket;
 </script>
 </body>
 </html>
