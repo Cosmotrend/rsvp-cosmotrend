@@ -16,7 +16,7 @@ let CODE='',ROT=0,SPIN=false,SZ=320,DPR=1;
 
 const getT=c=>parseInt(localStorage.getItem('whl_'+c)||'0');
 const setT=(c,n)=>localStorage.setItem('whl_'+c,String(n));
-function sv(id){['vl','vload','vw','vb','vr'].forEach(v=>{document.getElementById(v).style.display=v===id?'':'none';})}
+function sv(id){['vl','vload','vw','vb','vr','vgreet'].forEach(v=>{document.getElementById(v).style.display=v===id?'':'none';})}
 
 export function onci(){
   const el=document.getElementById('ci');
@@ -29,7 +29,31 @@ export function validate(){
   const code=document.getElementById('ci').value.toUpperCase().trim();
   if(!/^SD26-\d{4}$/.test(code))return;
   CODE=code;sv('vload');
-  setTimeout(()=>{getT(code)>=MAX?sv('vb'):(initWheel(code,getT(code)),sv('vw'));},700);
+  setTimeout(()=>{
+    if(getT(code)>=MAX){sv('vb');return;}
+    const guest=JSON.parse(localStorage.getItem('guest_'+code)||'{}');
+    if(guest.name){
+      showGreeting(guest.name,()=>{initWheel(code,getT(code));sv('vw');});
+    } else {
+      initWheel(code,getT(code));sv('vw');
+    }
+  },700);
+}
+
+function showGreeting(name, onDone){
+  sv('vgreet');
+  document.getElementById('gr-name').textContent=name;
+  if(window.gsap){
+    const tl=window.gsap.timeline({onComplete:onDone});
+    tl.to('#gr-hello',{opacity:1,duration:0.5,ease:'power2.out'})
+      .to('#gr-pre',  {opacity:1,duration:0.4,ease:'power2.out'},'-=0.1')
+      .to('#gr-name', {opacity:1,y:0,duration:0.7,ease:'back.out(1.5)'},'-=0.1')
+      .to('#gr-sep',  {opacity:1,duration:0.4,ease:'power2.out'},'-=0.2')
+      .to('#gr-sub',  {opacity:1,duration:0.5,ease:'power2.out'},'-=0.2')
+      .to('#vgreet',  {opacity:0,duration:0.55,ease:'power2.in',delay:1.8});
+  } else {
+    setTimeout(onDone,3200);
+  }
 }
 
 function initWheel(code,tries){
@@ -166,9 +190,20 @@ export function spin(){
 }
 
 function sendWheelResult(code, prize, attempt) {
+  const g=JSON.parse(localStorage.getItem('guest_'+code)||'{}');
   fetch(SCRIPT_URL+'?'+new URLSearchParams({
-    type:'wheel', ticket:code, prize:prize, attempt:String(attempt),
-    ts:new Date().toISOString()
+    type:'wheel',
+    ticket:code,
+    prize:prize,
+    attempt:String(attempt),
+    ts:new Date().toISOString(),
+    name:g.name||'',
+    salon:g.salon||'',
+    city:g.city||'',
+    phone:g.phone||'',
+    guests:g.guests||'',
+    rep:g.rep||'',
+    date:g.date||''
   }).toString(), {mode:'no-cors'}).catch(()=>{});
 }
 

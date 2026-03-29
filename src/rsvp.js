@@ -19,6 +19,8 @@ export function sub(t) {
         g=document.getElementById('fg').value, r=document.getElementById('fr').value,
         d=document.getElementById('fd').value;
   currentTicket = 'SD26-'+String(Math.floor(1000+Math.random()*9000));
+  // Persist guest data for wheel greeting + Sheets enrichment
+  localStorage.setItem('guest_'+currentTicket, JSON.stringify({name:n,salon:s,city:c,phone:p,guests:g,rep:r,date:d}));
   fetch(SCRIPT_URL+'?'+new URLSearchParams({name:n,salon:s,city:c,phone:p,guests:g,rep:r,date:d,type:t,ticket:currentTicket}).toString(), {mode:'no-cors'}).catch(()=>{});
   sv('vl');
   setTimeout(() => {
