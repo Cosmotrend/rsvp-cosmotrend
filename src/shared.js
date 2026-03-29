@@ -12,8 +12,8 @@ export function initParticles() {
       p.x+=p.vx; p.y+=p.vy; p.tw+=p.ts;
       if (p.y<-10||p.x<-10||p.x>W+10) Object.assign(p, mp());
       const a = p.o*(0.5+0.5*Math.sin(p.tw));
-      x.save(); x.globalAlpha=a; x.fillStyle='#e8c97e';
-      x.shadowBlur=7; x.shadowColor='rgba(232,201,126,.7)';
+      x.save(); x.globalAlpha=a; x.fillStyle='#F8A4C8';
+      x.shadowBlur=7; x.shadowColor='rgba(248,164,200,.7)';
       x.beginPath(); x.arc(p.x,p.y,p.s,0,Math.PI*2); x.fill(); x.restore();
     });
     requestAnimationFrame(fr);
@@ -22,7 +22,7 @@ export function initParticles() {
 }
 
 /* ===== CONFETTI ===== */
-const CC = ['#E8C97E','#EC008C','#FFFFFF','#F7EAB5','#FF3DAB','#D4A843','#B8E8FF'];
+const CC = ['#F8A4C8','#D4A574','#FFFFFF','#ffdaec','#FFF8F5','#c47090','#ffc8de'];
 let cp = [];
 
 export function launchConfetti(ox, oy) {

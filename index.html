@@ -8,36 +8,48 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="/src/style.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body>
 <div class="aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
 <div class="grain" aria-hidden="true"></div>
 <canvas id="pcv" style="position:fixed;inset:0;pointer-events:none;z-index:1;"></canvas>
 <canvas id="ccv" style="position:fixed;inset:0;pointer-events:none;z-index:100;display:none;"></canvas>
-<div class="topbar"><span>Cosmotrend &nbsp;·&nbsp; Casablanca &nbsp;·&nbsp; 2026</span></div>
+
+<!-- TOPBAR avec logo placeholder -->
+<div class="topbar" style="justify-content:space-between;align-items:center;padding:14px 32px;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <!-- Logo placeholder — remplacer src par le vrai logo -->
+    <div id="logo-placeholder" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,rgba(248,164,200,.2),rgba(212,165,116,.15));border:1px solid rgba(248,164,200,.3);display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;font-style:italic;color:#F8A4C8;">S</span>
+    </div>
+    <span style="font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,248,245,.4);">Semilac Days</span>
+  </div>
+  <span style="font-size:8px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(248,164,200,.25);">Cosmotrend · Casablanca · 2026</span>
+</div>
 
 <main style="position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:90px 20px 80px;">
-  <header style="text-align:center;margin-bottom:64px;max-width:640px;animation:fuUp .8s ease both;">
-    <div style="display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(232,201,126,.22);border-radius:100px;padding:7px 20px;margin-bottom:36px;background:rgba(232,201,126,.04);backdrop-filter:blur(10px);">
-      <span style="width:5px;height:5px;border-radius:50%;background:#e8c97e;box-shadow:0 0 12px rgba(232,201,126,.9);animation:bpulse 2s ease-in-out infinite;"></span>
-      <span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#e8c97e;">Invitation Exclusive</span>
+  <header id="hero" style="text-align:center;margin-bottom:64px;max-width:640px;opacity:0;transform:translateY(28px);">
+    <div id="badge" style="display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(248,164,200,.22);border-radius:100px;padding:7px 20px;margin-bottom:36px;background:rgba(248,164,200,.04);backdrop-filter:blur(10px);opacity:0;">
+      <span style="width:5px;height:5px;border-radius:50%;background:#F8A4C8;box-shadow:0 0 12px rgba(248,164,200,.9);animation:bpulse 2s ease-in-out infinite;"></span>
+      <span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#F8A4C8;">Invitation Exclusive</span>
     </div>
-    <h1 style="margin-bottom:4px;">
-      <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(68px,13vw,112px);font-weight:300;font-style:italic;line-height:.88;background:linear-gradient(150deg,#c8902a 0%,#e8c97e 28%,#f7eabb 52%,#d4a843 78%,#c8902a 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fuUp .9s .15s ease both,sgold 7s 1.2s linear infinite;">Semilac</span>
-      <span style="display:block;font-family:'Montserrat',sans-serif;font-size:clamp(28px,5.5vw,50px);font-weight:800;letter-spacing:.38em;text-transform:uppercase;color:#f5edd8;">Days</span>
+    <h1 id="htitle" style="margin-bottom:4px;opacity:0;">
+      <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(68px,13vw,112px);font-weight:300;font-style:italic;line-height:.88;background:linear-gradient(150deg,#c47090 0%,#F8A4C8 28%,#ffdaec 52%,#D4A574 78%,#c47090 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:srose 7s 1.2s linear infinite;">Semilac</span>
+      <span style="display:block;font-family:'Montserrat',sans-serif;font-size:clamp(28px,5.5vw,50px);font-weight:800;letter-spacing:.38em;text-transform:uppercase;color:#FFF8F5;">Days</span>
     </h1>
-    <p style="margin-top:14px;font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(232,201,126,.55);animation:fuUp .9s .3s ease both;">2ème Édition</p>
-    <div style="width:160px;height:1px;margin:20px auto;background:linear-gradient(90deg,transparent,rgba(232,201,126,.4),transparent);animation:fi 1s .4s ease both;"></div>
-    <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,216,.38);animation:fuUp .9s .45s ease both;">
-      14 — 19 Mai 2026 <em style="font-style:normal;color:rgba(232,201,126,.45);margin:0 8px;">·</em> Showroom Cosmotrend <em style="font-style:normal;color:rgba(232,201,126,.45);margin:0 8px;">·</em> Casablanca
+    <p id="subtitle" style="margin-top:14px;font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(248,164,200,.55);opacity:0;">2ème Édition</p>
+    <div id="divider" style="width:160px;height:1px;margin:20px auto;background:linear-gradient(90deg,transparent,rgba(248,164,200,.4),transparent);opacity:0;"></div>
+    <p id="dateinfo" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,248,245,.38);opacity:0;">
+      14 — 19 Mai 2026 <em style="font-style:normal;color:rgba(248,164,200,.45);margin:0 8px;">·</em> Showroom Cosmotrend <em style="font-style:normal;color:rgba(248,164,200,.45);margin:0 8px;">·</em> Casablanca
     </p>
   </header>
 
   <div style="width:100%;max-width:520px;">
 
     <!-- FORM -->
-    <div id="vf" class="glass" style="padding:44px 36px;animation:fuUp .9s .55s ease both;opacity:0;">
-      <p style="text-align:center;font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(232,201,126,.38);margin-bottom:32px;">Confirmez votre présence</p>
+    <div id="vf" class="glass" style="padding:44px 36px;opacity:0;transform:translateY(16px);">
+      <p style="text-align:center;font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(248,164,200,.38);margin-bottom:32px;">Confirmez votre présence</p>
       <div style="display:flex;flex-direction:column;gap:14px;">
         <div class="field"><input id="fn" class="fi" type="text" autocomplete="name" oninput="mv(this);cf()"/><label class="fl">Nom &amp; Prénom *</label></div>
         <div class="field"><input id="fs" class="fi" type="text" oninput="mv(this);cf()"/><label class="fl">Salon / Institut *</label></div>
@@ -48,7 +60,7 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
           <div class="field">
             <select id="fg" class="fi v" onchange="cf()"><option value="1">1 personne</option><option value="2">2 personnes</option><option value="3">3 personnes</option><option value="4">4 personnes</option><option value="5">5 personnes</option></select>
-            <label class="fl" style="top:9px;transform:none;font-size:8px;letter-spacing:.16em;color:rgba(232,201,126,.7);">Nb personnes</label>
+            <label class="fl" style="top:9px;transform:none;font-size:8px;letter-spacing:.16em;color:rgba(248,164,200,.7);">Nb personnes</label>
           </div>
           <div class="field">
             <select id="fr" class="fi" onchange="cf();this.classList.add('v')"><option value=""></option><option>Boutaina</option><option>Zineb</option><option>Radia</option><option>Marwa</option><option>Chaima</option><option>Wafaa</option><option>Kamilia</option></select>
@@ -57,18 +69,18 @@
         </div>
       </div>
       <div style="display:flex;gap:12px;margin-top:28px;">
-        <button id="bc" class="btn-g" style="flex:2;" onclick="sub('confirm')" disabled>
+        <button id="bc" class="btn-g" style="flex:2;" onclick="subAnimated('confirm')" disabled>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
           Je confirme
         </button>
-        <button id="bd" class="btn-o" style="flex:1;" onclick="sub('decline')" disabled>Décliner</button>
+        <button id="bd" class="btn-o" style="flex:1;" onclick="subAnimated('decline')" disabled>Décliner</button>
       </div>
     </div>
 
     <!-- LOADING -->
     <div id="vl" style="display:none;text-align:center;padding:80px 0;">
       <div class="spin" style="margin:0 auto 20px;"></div>
-      <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,237,216,.28);">Enregistrement…</p>
+      <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,248,245,.28);">Enregistrement…</p>
     </div>
 
     <!-- SUCCESS -->
@@ -76,23 +88,23 @@
       <div style="padding:52px 36px;text-align:center;">
         <div style="animation:sIn .4s .1s ease both;margin:0 auto 28px;">
           <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-            <circle cx="36" cy="36" r="34" stroke="rgba(232,201,126,.12)" stroke-width="1.5"/>
-            <circle cx="36" cy="36" r="34" stroke="url(#gr)" stroke-width="1.5" stroke-dasharray="214" opacity=".55"/>
-            <polyline points="20,36 30,46 52,26" stroke="#e8c97e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" style="stroke-dasharray:54;stroke-dashoffset:54;animation:chk .5s .45s ease-out forwards;"/>
-            <defs><linearGradient id="gr" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#c8902a"/><stop offset="50%" stop-color="#e8c97e"/><stop offset="100%" stop-color="#c8902a"/></linearGradient></defs>
+            <circle cx="36" cy="36" r="34" stroke="rgba(248,164,200,.12)" stroke-width="1.5"/>
+            <circle cx="36" cy="36" r="34" stroke="url(#grr)" stroke-width="1.5" stroke-dasharray="214" opacity=".55"/>
+            <polyline points="20,36 30,46 52,26" stroke="#F8A4C8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" style="stroke-dasharray:54;stroke-dashoffset:54;animation:chk .5s .45s ease-out forwards;"/>
+            <defs><linearGradient id="grr" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#c47090"/><stop offset="50%" stop-color="#F8A4C8"/><stop offset="100%" stop-color="#D4A574"/></linearGradient></defs>
           </svg>
         </div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:#f5edd8;margin-bottom:8px;">Votre place est réservée</h2>
-        <p style="font-size:12px;color:rgba(245,237,216,.38);letter-spacing:.07em;margin-bottom:36px;">Nous avons hâte de vous accueillir</p>
-        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,.22),transparent);margin-bottom:32px;"></div>
-        <p style="font-size:9px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(245,237,216,.22);margin-bottom:12px;">Numéro de billet</p>
-        <div style="display:inline-block;padding:14px 30px;background:rgba(232,201,126,.05);border:1px solid rgba(232,201,126,.17);border-radius:10px;margin-bottom:36px;box-shadow:0 0 50px rgba(232,201,126,.06);">
-          <span id="td" style="font-family:'Courier New',monospace;font-size:26px;font-weight:700;letter-spacing:.18em;color:#e8c97e;text-shadow:0 0 30px rgba(232,201,126,.4);"></span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:#FFF8F5;margin-bottom:8px;">Votre place est réservée</h2>
+        <p style="font-size:12px;color:rgba(255,248,245,.38);letter-spacing:.07em;margin-bottom:36px;">Nous avons hâte de vous accueillir</p>
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(248,164,200,.22),transparent);margin-bottom:32px;"></div>
+        <p style="font-size:9px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,248,245,.22);margin-bottom:12px;">Numéro de billet</p>
+        <div style="display:inline-block;padding:14px 30px;background:rgba(248,164,200,.05);border:1px solid rgba(248,164,200,.17);border-radius:10px;margin-bottom:36px;box-shadow:0 0 50px rgba(248,164,200,.06);">
+          <span id="td" style="font-family:'Courier New',monospace;font-size:26px;font-weight:700;letter-spacing:.18em;color:#F8A4C8;text-shadow:0 0 30px rgba(248,164,200,.4);"></span>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;text-align:left;">
-          <div class="perk"><span style="font-size:22px;flex-shrink:0;">🎫</span><div><p style="font-size:13px;font-weight:600;color:#f0e8d5;margin-bottom:3px;">Coupon -25% exclusif</p><p style="font-size:11px;color:rgba(245,237,216,.32);">Sur vos commandes durant l'événement</p></div></div>
-          <div class="perk"><span style="font-size:22px;flex-shrink:0;">⭐</span><div><p style="font-size:13px;font-weight:600;color:#f0e8d5;margin-bottom:3px;">Ticket tombola offert</p><p style="font-size:11px;color:rgba(245,237,216,.32);">Tentez de remporter des prix exclusifs</p></div></div>
-          <div class="perk"><span style="font-size:22px;flex-shrink:0;">🚗</span><div><p style="font-size:13px;font-weight:600;color:#f0e8d5;margin-bottom:3px;">VTC privé offert</p><p style="font-size:11px;color:rgba(245,237,216,.32);">Réservez via WhatsApp : 0663-596-644</p></div></div>
+          <div class="perk"><span style="font-size:22px;flex-shrink:0;">🎫</span><div><p style="font-size:13px;font-weight:600;color:#FFF8F5;margin-bottom:3px;">Coupon -25% exclusif</p><p style="font-size:11px;color:rgba(255,248,245,.32);">Sur vos commandes durant l'événement</p></div></div>
+          <div class="perk"><span style="font-size:22px;flex-shrink:0;">⭐</span><div><p style="font-size:13px;font-weight:600;color:#FFF8F5;margin-bottom:3px;">Ticket tombola offert</p><p style="font-size:11px;color:rgba(255,248,245,.32);">Tentez de remporter des prix exclusifs</p></div></div>
+          <div class="perk"><span style="font-size:22px;flex-shrink:0;">🚗</span><div><p style="font-size:13px;font-weight:600;color:#FFF8F5;margin-bottom:3px;">VTC privé offert</p><p style="font-size:11px;color:rgba(255,248,245,.32);">Réservez via WhatsApp : 0663-596-644</p></div></div>
         </div>
         <button class="btn-g" style="width:100%;margin-bottom:12px;" onclick="openTicket()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -105,24 +117,99 @@
     <!-- DECLINE -->
     <div id="vd" style="display:none;" class="glass">
       <div style="padding:52px 36px;text-align:center;">
-        <div style="width:64px;height:64px;border-radius:50%;border:1px solid rgba(245,237,216,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;background:rgba(255,255,255,.02);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(245,237,216,.28)" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <div style="width:64px;height:64px;border-radius:50%;border:1px solid rgba(255,248,245,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;background:rgba(255,255,255,.02);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,248,245,.28)" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:#f5edd8;margin-bottom:8px;">Réponse enregistrée</h2>
-        <p style="font-size:13px;color:rgba(245,237,216,.38);line-height:1.8;margin-bottom:36px;">Nous espérons vous retrouver<br>lors de la prochaine édition.</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:#FFF8F5;margin-bottom:8px;">Réponse enregistrée</h2>
+        <p style="font-size:13px;color:rgba(255,248,245,.38);line-height:1.8;margin-bottom:36px;">Nous espérons vous retrouver<br>lors de la prochaine édition.</p>
         <button class="btn-o" style="width:100%;" onclick="rf()">Modifier ma réponse</button>
       </div>
     </div>
   </div>
 
-  <footer style="margin-top:64px;text-align:center;">
-    <p style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,216,.1);">Cosmotrend · Casablanca · 2026</p>
+  <!-- SPONSORS -->
+  <div id="sponsors" style="margin-top:72px;text-align:center;width:100%;max-width:520px;opacity:0;">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+      <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(248,164,200,.15));"></div>
+      <span style="font-size:8px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,248,245,.18);">En partenariat avec</span>
+      <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(248,164,200,.15),transparent);"></div>
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;">
+      <!-- Logo Semilac — remplacer par <img> avec le vrai logo -->
+      <div class="sponsor-logo">
+        <div style="width:38px;height:38px;border-radius:8px;background:rgba(248,164,200,.06);border:1px solid rgba(248,164,200,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;font-style:italic;color:rgba(248,164,200,.55);">S</span>
+        </div>
+        <p style="font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,248,245,.2);">Semilac</p>
+      </div>
+      <div style="width:1px;height:32px;background:rgba(255,248,245,.06);"></div>
+      <!-- Logo Semilac Académie -->
+      <div class="sponsor-logo">
+        <div style="width:38px;height:38px;border-radius:8px;background:rgba(212,165,116,.06);border:1px solid rgba(212,165,116,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;font-style:italic;color:rgba(212,165,116,.55);">A</span>
+        </div>
+        <p style="font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,248,245,.2);">Académie</p>
+      </div>
+      <div style="width:1px;height:32px;background:rgba(255,248,245,.06);"></div>
+      <!-- Logo Footlogix -->
+      <div class="sponsor-logo">
+        <div style="width:38px;height:38px;border-radius:8px;background:rgba(255,248,245,.04);border:1px solid rgba(255,248,245,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;font-style:italic;color:rgba(255,248,245,.3);">F</span>
+        </div>
+        <p style="font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,248,245,.2);">Footlogix</p>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:40px;text-align:center;">
+    <p style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,248,245,.08);">Cosmotrend · Casablanca · 2026</p>
   </footer>
 </main>
 
 <script type="module">
   import { mv, cf, sub, rf, openTicket } from '/src/rsvp.js';
-  window.mv=mv; window.cf=cf; window.sub=sub; window.rf=rf; window.openTicket=openTicket;
+  window.mv=mv; window.cf=cf; window.rf=rf; window.openTicket=openTicket;
+
+  // ── Animated submit ──────────────────────────────────────────
+  window.subAnimated = function(type) {
+    const card = document.getElementById('vf');
+    gsap.to('#bc', { scale: 0.96, duration: 0.08, ease: 'power2.in', yoyo: true, repeat: 1 });
+    gsap.to(card, {
+      opacity: 0, scale: 0.97, y: -12,
+      duration: 0.38, ease: 'power2.in',
+      onComplete: () => sub(type)
+    });
+  };
+
+  // ── Page entrance (staggered) ─────────────────────────────────
+  const tl = gsap.timeline({ delay: 0.1 });
+  tl.to('#hero',    { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+    .to('#badge',   { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.5')
+    .to('#htitle',  { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.3')
+    .to('#subtitle',{ opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2')
+    .to('#divider', { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2')
+    .to('#dateinfo',{ opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2')
+    .to('#vf',      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.2')
+    .to('#sponsors',{ opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.1');
+
+  // ── Background aurora pulse (GSAP) ────────────────────────────
+  gsap.to('.b1', { scale: 1.06, duration: 7,  repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  gsap.to('.b2', { scale: 1.09, duration: 9,  repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 2.5 });
+  gsap.to('.b3', { scale: 1.05, duration: 11, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.2 });
+  gsap.to('.aurora', {
+    filter: 'brightness(1.18)',
+    duration: 5, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1
+  });
+
+  // ── Field focus micro-animation ───────────────────────────────
+  document.querySelectorAll('.fi').forEach(el => {
+    el.addEventListener('focus', () => {
+      gsap.to(el.closest('.field') || el, { scale: 1.012, duration: 0.2, ease: 'power2.out' });
+    });
+    el.addEventListener('blur', () => {
+      gsap.to(el.closest('.field') || el, { scale: 1, duration: 0.2, ease: 'power2.out' });
+    });
+  });
 </script>
 </body>
 </html>

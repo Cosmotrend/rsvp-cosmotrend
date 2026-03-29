@@ -4,6 +4,11 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [tailwindcss()],
+  server: {
+    port: parseInt(process.env.PORT) || 5173,
+    strictPort: false,
+    host: true,
+  },
   build: {
     rollupOptions: {
       input: {
