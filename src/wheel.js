@@ -1,4 +1,4 @@
-import { initParticles, launchConfetti } from './shared.js';
+import { initParticles, launchConfetti, launchConfettiLoop } from './shared.js';
 
 const MAX=2, N=16, ARC=360/N;
 
@@ -169,25 +169,25 @@ function showResult(winner,tries){
   document.getElementById('rl').textContent=seg.l;
   document.getElementById('rd').textContent=seg.d;
   document.getElementById('rc').textContent=CODE;
-  document.getElementById('br').style.display=tries<MAX?'':'none';
+  document.getElementById('br').style.display=tries<MAX?'flex':'none';
   sv('vr');
 
-  // Cinematic result entrance
+  // Staggered cinematic entrance for full-screen coupon
+  const sections=['#res-top','#res-bravo','#res-sub','#res-prize','#res-desc','#res-divider','#res-code','#res-cta','#res-btns'];
   if(window.gsap){
-    window.gsap.fromTo('#vr > div',
-      {scale:0.88,opacity:0,y:32},
-      {scale:1,opacity:1,y:0,duration:0.7,ease:'back.out(1.5)',delay:0.05}
-    );
-    window.gsap.fromTo('#rl',
-      {scale:0.5,opacity:0},
-      {scale:1,opacity:1,duration:0.5,ease:'back.out(2)',delay:0.3}
-    );
+    sections.forEach((sel,i)=>{
+      window.gsap.fromTo(sel,
+        {opacity:0, y: sel==='#res-prize'?0:20, scale: sel==='#res-prize'?0.6:1},
+        {opacity:1, y:0, scale:1, duration: sel==='#res-prize'?0.65:0.5, ease: sel==='#res-prize'?'back.out(2)':'power2.out', delay:0.1+i*0.1}
+      );
+    });
   }
 
+  // Vibrate + confetti loop
   setTimeout(()=>{
-    launchConfetti(window.innerWidth/2,window.innerHeight*.35);
     if(navigator.vibrate)navigator.vibrate([50,30,80,30,50]);
-  },350);
+    launchConfettiLoop(6);
+  },400);
 }
 
 export function retry(){

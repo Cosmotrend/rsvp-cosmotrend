@@ -59,7 +59,7 @@
 </div>
 <div class="grain" aria-hidden="true"></div>
 <canvas id="pcv" style="position:fixed;inset:0;pointer-events:none;z-index:1;"></canvas>
-<canvas id="ccv" style="position:fixed;inset:0;pointer-events:none;z-index:100;display:none;"></canvas>
+<canvas id="ccv" style="position:fixed;inset:0;pointer-events:none;z-index:300;display:none;"></canvas>
 
 <!-- TOPBAR -->
 <div class="topbar" style="justify-content:space-between;align-items:center;padding:14px 32px;">
@@ -184,34 +184,73 @@
   </footer>
 </main>
 
-<!-- RESULT OVERLAY — premium cinematic -->
-<div id="vr" style="display:none;" class="result-bg">
-  <div style="width:100%;max-width:420px;">
-    <div class="glass" style="padding:52px 36px;text-align:center;position:relative;overflow:hidden;">
-      <!-- Background glow -->
-      <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(ellipse,rgba(248,164,200,.14) 0%,transparent 65%);pointer-events:none;"></div>
+<!-- RESULT — full screen coupon -->
+<div id="vr" style="display:none;position:fixed;inset:0;background:#0D0008;z-index:200;overflow-y:auto;">
 
-      <!-- Prize circle -->
-      <div class="result-prize">
-        <div class="result-prize-glow"></div>
-        <div class="result-prize-inner">
-          <span id="rl" style="font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:600;color:#FFF8F5;line-height:1;"></span>
-          <span style="font-size:7px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:rgba(248,164,200,.6);margin-top:6px;">GAGNÉ</span>
-        </div>
+  <!-- Background aurora glow -->
+  <div style="position:fixed;top:-10%;left:50%;transform:translateX(-50%);width:min(100vw,600px);height:min(100vw,600px);background:radial-gradient(ellipse,rgba(248,164,200,.22) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+  <canvas id="ccv2" style="position:fixed;inset:0;pointer-events:none;z-index:1;display:none;"></canvas>
+
+  <div style="position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px 40px;text-align:center;">
+
+    <!-- Badge event -->
+    <div id="res-top" style="opacity:0;transform:translateY(12px);margin-bottom:28px;">
+      <div style="display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(248,164,200,.2);border-radius:100px;padding:7px 20px;background:rgba(248,164,200,.05);backdrop-filter:blur(10px);">
+        <span style="width:5px;height:5px;border-radius:50%;background:#F8A4C8;box-shadow:0 0 10px rgba(248,164,200,.9);animation:bpulse 2s ease-in-out infinite;"></span>
+        <span style="font-size:9px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:#F8A4C8;">Semilac Days 2026</span>
       </div>
+    </div>
 
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;font-style:italic;color:#FFF8F5;margin-bottom:6px;">Félicitations !</h2>
-      <p id="rd" style="font-size:14px;color:rgba(255,248,245,.55);margin-bottom:6px;letter-spacing:.04em;"></p>
-      <p id="rc" style="font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.18em;color:rgba(248,164,200,.6);margin-bottom:32px;"></p>
+    <!-- Bravo ! -->
+    <div id="res-bravo" style="opacity:0;transform:translateY(16px);margin-bottom:4px;">
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(58px,14vw,88px);font-weight:300;font-style:italic;color:#FFF8F5;line-height:1;">Bravo !</h1>
+    </div>
 
-      <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(248,164,200,.18),transparent);margin-bottom:28px;"></div>
+    <!-- Vous avez gagné -->
+    <div id="res-sub" style="opacity:0;margin-bottom:28px;">
+      <p style="font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(248,164,200,.55);">Vous avez gagné</p>
+    </div>
 
-      <button id="br" class="btn-g" style="width:100%;margin-bottom:12px;display:none;" onclick="retry()">
+    <!-- Prize — big -->
+    <div id="res-prize" style="opacity:0;transform:scale(0.8);margin-bottom:16px;">
+      <div style="position:relative;display:inline-block;">
+        <div style="position:absolute;inset:-16px;border-radius:50%;background:radial-gradient(ellipse,rgba(248,164,200,.25) 0%,transparent 70%);filter:blur(12px);animation:glowpulse 2.5s ease-in-out infinite;"></div>
+        <span id="rl" style="position:relative;font-family:'Cormorant Garamond',serif;font-size:clamp(80px,22vw,130px);font-weight:600;background:linear-gradient(150deg,#c47090 0%,#F8A4C8 35%,#ffdaec 55%,#D4A574 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;"></span>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div id="res-desc" style="opacity:0;margin-bottom:10px;">
+      <p id="rd" style="font-size:15px;color:rgba(255,248,245,.6);letter-spacing:.05em;"></p>
+      <p style="font-size:11px;color:rgba(255,248,245,.28);letter-spacing:.1em;margin-top:4px;">Semilac Days 2026 · Casablanca</p>
+    </div>
+
+    <!-- Divider -->
+    <div id="res-divider" style="opacity:0;width:180px;height:1px;background:linear-gradient(90deg,transparent,rgba(248,164,200,.35),transparent);margin:20px auto 20px;"></div>
+
+    <!-- Code billet -->
+    <div id="res-code" style="opacity:0;margin-bottom:32px;">
+      <p style="font-size:8px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,248,245,.2);margin-bottom:8px;">Code billet</p>
+      <p id="rc" style="font-family:'Courier New',monospace;font-size:18px;font-weight:700;letter-spacing:.2em;color:rgba(248,164,200,.7);"></p>
+    </div>
+
+    <!-- Coupon instruction — le moment fort -->
+    <div id="res-cta" style="opacity:0;transform:translateY(10px);width:100%;max-width:360px;margin-bottom:32px;">
+      <div style="border:1px dashed rgba(248,164,200,.25);border-radius:16px;padding:20px 24px;background:rgba(248,164,200,.04);">
+        <p style="font-size:22px;margin-bottom:8px;">📱</p>
+        <p style="font-size:12px;font-weight:600;color:rgba(255,248,245,.65);letter-spacing:.06em;line-height:1.8;">Présentez cet écran<br>à votre commerciale</p>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div id="res-btns" style="opacity:0;width:100%;max-width:360px;display:flex;flex-direction:column;gap:12px;">
+      <button id="br" class="btn-g" style="width:100%;display:none;" onclick="retry()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
         Tenter le 2ème essai
       </button>
       <button class="btn-o" style="width:100%;font-size:11px;" onclick="back()">Utiliser un autre billet</button>
     </div>
+
   </div>
 </div>
 
