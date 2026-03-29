@@ -1,340 +1,293 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RSVP — Semilac Days 2026</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/src/style.css" />
-</head>
-<body style="min-height:100dvh;background:#0a0a14;overflow-x:hidden;">
-
-  <div aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:0;">
-    <div style="position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(232,201,126,0.06) 0%,transparent 70%);"></div>
-    <div style="position:absolute;bottom:-10%;left:-10%;width:500px;height:400px;background:radial-gradient(ellipse,rgba(236,0,140,0.05) 0%,transparent 70%);"></div>
-  </div>
-
-  <main style="position:relative;z-index:1;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 48px;">
-
-    <header class="animate-fade-up" style="text-align:center;margin-bottom:48px;max-width:480px;">
-      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(232,201,126,0.08);border:1px solid rgba(232,201,126,0.2);border-radius:100px;padding:6px 16px;margin-bottom:24px;">
-        <span style="width:6px;height:6px;border-radius:50%;background:#e8c97e;display:inline-block;box-shadow:0 0 8px rgba(232,201,126,0.8);animation:pulse-gold 2s ease infinite;"></span>
-        <span style="font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#e8c97e;">Invitation Exclusive</span>
-      </div>
-      <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(42px,8vw,64px);font-weight:300;line-height:1.05;color:#f5edd8;letter-spacing:-0.01em;margin-bottom:8px;">
-        Semilac<br><em style="font-style:italic;font-weight:400;">Days</em>
-      </h1>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,4vw,24px);font-weight:300;color:#e8c97e;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:20px;">2026 — 2ème Édition</p>
-      <div class="divider-gold" style="margin:0 auto 20px;max-width:200px;"></div>
-      <p style="font-size:13px;letter-spacing:0.08em;color:rgba(240,232,213,0.5);text-transform:uppercase;">
-        14 — 19 Mai 2026 &nbsp;·&nbsp; Showroom Cosmotrend &nbsp;·&nbsp; Casablanca
-      </p>
-    </header>
-
-    <div style="width:100%;max-width:520px;">
-
-      <!-- FORM -->
-      <div id="v-form" class="card-premium animate-fade-up delay-2" style="padding:40px 32px;">
-        <p style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(240,232,213,0.3);margin-bottom:28px;text-align:center;">Confirmez votre présence</p>
-
-        <div style="display:flex;flex-direction:column;gap:14px;">
-          <div class="field-wrap">
-            <input id="f-name" class="field-input" type="text" autocomplete="name" oninput="checkForm();markFilled(this)" />
-            <label class="field-label" for="f-name">Nom &amp; Prénom *</label>
-          </div>
-          <div class="field-wrap">
-            <input id="f-salon" class="field-input" type="text" oninput="checkForm();markFilled(this)" />
-            <label class="field-label" for="f-salon">Salon / Institut *</label>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div class="field-wrap">
-              <input id="f-city" class="field-input" type="text" oninput="checkForm();markFilled(this)" />
-              <label class="field-label" for="f-city">Ville *</label>
-            </div>
-            <div class="field-wrap">
-              <input id="f-phone" class="field-input" type="tel" oninput="checkForm();markFilled(this)" />
-              <label class="field-label" for="f-phone">WhatsApp *</label>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div class="field-wrap">
-              <select id="f-guests" class="field-input filled" onchange="checkForm()">
-                <option value="1">1 personne</option>
-                <option value="2">2 personnes</option>
-                <option value="3">3 personnes</option>
-                <option value="4">4 personnes</option>
-                <option value="5">5 personnes</option>
-              </select>
-              <label class="field-label" style="top:8px;transform:none;font-size:9px;color:#e8c97e;letter-spacing:0.12em;">Nb personnes</label>
-            </div>
-            <div class="field-wrap">
-              <select id="f-rep" class="field-input" onchange="checkForm();this.classList.add('filled')">
-                <option value=""></option>
-                <option>Boutaina</option>
-                <option>Zineb</option>
-                <option>Radia</option>
-                <option>Marwa</option>
-                <option>Chaima</option>
-                <option>Wafaa</option>
-                <option>Kamilia</option>
-              </select>
-              <label class="field-label" for="f-rep">Représentant *</label>
-            </div>
-          </div>
-        </div>
-
-        <p id="hint" style="display:none;font-size:11px;color:rgba(236,0,140,0.7);margin-top:12px;text-align:center;letter-spacing:0.05em;">Veuillez remplir tous les champs obligatoires</p>
-
-        <div style="display:flex;gap:12px;margin-top:28px;">
-          <button id="btn-confirm" class="btn-gold" style="flex:1;" onclick="submit('confirm')" disabled>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Je confirme
-          </button>
-          <button id="btn-decline" class="btn-ghost" style="flex:1;" onclick="submit('decline')" disabled>
-            Je ne pourrai pas
-          </button>
-        </div>
-      </div>
-
-      <!-- LOADING -->
-      <div id="v-load" style="display:none;text-align:center;padding:80px 40px;">
-        <div class="spinner" style="margin:0 auto 20px;"></div>
-        <p style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(240,232,213,0.35);">Enregistrement en cours…</p>
-      </div>
-
-      <!-- SUCCESS -->
-      <div id="v-success" style="display:none;" class="card-premium">
-        <div style="padding:48px 32px;text-align:center;">
-          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(232,201,126,0.15),rgba(232,201,126,0.05));border:1px solid rgba(232,201,126,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 0 30px rgba(232,201,126,0.12);">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e8c97e" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:#f5edd8;margin-bottom:8px;">Votre place est réservée</h2>
-          <p style="font-size:13px;color:rgba(240,232,213,0.45);letter-spacing:0.05em;margin-bottom:32px;">Nous avons hâte de vous accueillir</p>
-          <div class="divider-gold" style="margin-bottom:28px;"></div>
-          <p style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(240,232,213,0.3);margin-bottom:10px;">Votre numéro de billet</p>
-          <div style="display:inline-block;background:rgba(232,201,126,0.06);border:1px solid rgba(232,201,126,0.2);border-radius:8px;padding:12px 24px;margin-bottom:28px;">
-            <span id="ticket-display" style="font-family:'Courier New',monospace;font-size:22px;font-weight:700;letter-spacing:0.15em;color:#e8c97e;"></span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;text-align:left;">
-            <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;background:rgba(255,255,255,0.02);border-radius:10px;border:1px solid rgba(255,255,255,0.04);">
-              <span style="font-size:18px;">🎫</span>
-              <div><p style="font-size:13px;font-weight:600;color:#f0e8d5;margin-bottom:2px;">Coupon -25% exclusif</p><p style="font-size:11px;color:rgba(240,232,213,0.4);">Sur vos commandes durant l'événement</p></div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;background:rgba(255,255,255,0.02);border-radius:10px;border:1px solid rgba(255,255,255,0.04);">
-              <span style="font-size:18px;">⭐</span>
-              <div><p style="font-size:13px;font-weight:600;color:#f0e8d5;margin-bottom:2px;">Ticket tombola offert</p><p style="font-size:11px;color:rgba(240,232,213,0.4);">Tentez de remporter des prix exclusifs</p></div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;background:rgba(255,255,255,0.02);border-radius:10px;border:1px solid rgba(255,255,255,0.04);">
-              <span style="font-size:18px;">🚗</span>
-              <div><p style="font-size:13px;font-weight:600;color:#f0e8d5;margin-bottom:2px;">VTC privé offert</p><p style="font-size:11px;color:rgba(240,232,213,0.4);">Réservez via WhatsApp : 0663-596-644</p></div>
-            </div>
-          </div>
-          <button class="btn-gold" style="width:100%;margin-bottom:12px;" onclick="openTicket()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-            Télécharger mon billet PDF
-          </button>
-          <button class="btn-ghost" style="width:100%;font-size:11px;" onclick="resetForm()">Modifier ma réponse</button>
-        </div>
-      </div>
-
-      <!-- DECLINE -->
-      <div id="v-decline" style="display:none;" class="card-premium">
-        <div style="padding:48px 32px;text-align:center;">
-          <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(240,232,213,0.4)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:#f5edd8;margin-bottom:8px;">Réponse enregistrée</h2>
-          <p style="font-size:13px;color:rgba(240,232,213,0.45);line-height:1.7;margin-bottom:32px;">Nous espérons vous retrouver lors de la prochaine édition.</p>
-          <button class="btn-ghost" style="width:100%;" onclick="resetForm()">Modifier ma réponse</button>
-        </div>
-      </div>
-
-    </div>
-
-    <footer style="margin-top:48px;text-align:center;">
-      <p style="font-size:11px;letter-spacing:0.08em;color:rgba(240,232,213,0.18);text-transform:uppercase;">Cosmotrend &nbsp;·&nbsp; Casablanca</p>
-    </footer>
-  </main>
-
-  <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxdFgoG_FAeX_TbmztcrLLigfA3OIiczGTZnDg0itZ1djTWHrObY0DbLOYwFqQgsTyd/exec";
-    let currentTicket = "";
-
-    function markFilled(el) {
-      el.value.trim() ? el.classList.add('filled') : el.classList.remove('filled');
-    }
-
-    function checkForm() {
-      const ok = ['f-name','f-salon','f-city','f-phone','f-rep'].every(id => {
-        const el = document.getElementById(id);
-        return el && el.value.trim() !== '';
-      });
-      document.getElementById('btn-confirm').disabled = !ok;
-      document.getElementById('btn-decline').disabled = !ok;
-    }
-
-    function showView(id) {
-      ['v-form','v-load','v-success','v-decline'].forEach(v => {
-        const el = document.getElementById(v);
-        el.style.display = v === id ? '' : 'none';
-      });
-    }
-
-    function submit(type) {
-      const name   = document.getElementById('f-name').value.trim();
-      const salon  = document.getElementById('f-salon').value.trim();
-      const city   = document.getElementById('f-city').value.trim();
-      const phone  = document.getElementById('f-phone').value.trim();
-      const guests = document.getElementById('f-guests').value;
-      const rep    = document.getElementById('f-rep').value;
-      const ticket = "SD26-" + String(Math.floor(1000 + Math.random() * 9000));
-      currentTicket = ticket;
-
-      const params = new URLSearchParams({ name, salon, city, phone, guests, rep, type, ticket });
-      fetch(SCRIPT_URL + "?" + params.toString(), { mode: "no-cors" }).catch(() => {});
-
-      showView('v-load');
-      setTimeout(() => {
-        if (type === 'confirm') {
-          document.getElementById('ticket-display').textContent = ticket;
-          showView('v-success');
-        } else {
-          showView('v-decline');
-        }
-      }, 1400);
-    }
-
-    function resetForm() {
-      ['f-name','f-salon','f-city','f-phone'].forEach(id => {
-        const el = document.getElementById(id);
-        el.value = '';
-        el.classList.remove('filled');
-      });
-      document.getElementById('f-rep').value = '';
-      document.getElementById('f-rep').classList.remove('filled');
-      document.getElementById('f-guests').value = '1';
-      document.getElementById('btn-confirm').disabled = true;
-      document.getElementById('btn-decline').disabled = true;
-      showView('v-form');
-    }
-
-    function openTicket() {
-      const name   = document.getElementById('f-name').value.trim();
-      const salon  = document.getElementById('f-salon').value.trim();
-      const city   = document.getElementById('f-city').value.trim();
-      const guests = document.getElementById('f-guests').value;
-      const rep    = document.getElementById('f-rep').value;
-      const ticket = currentTicket;
-
-      const win = window.open('', '_blank');
-      win.document.write(`<!DOCTYPE html>
-<html lang="fr">
-<head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Billet VIP — ${ticket}</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<title>RSVP — Semilac Days 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#ece8e0;font-family:'Montserrat',sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-.page{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;}
-.ticket{width:100%;max-width:580px;background:#fff;border-radius:2px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.2);}
-.top-stripe{background:linear-gradient(135deg,#120828 0%,#28085c 50%,#120828 100%);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;}
-.ts-code{font-size:11px;font-weight:700;letter-spacing:0.22em;color:rgba(232,201,126,0.9);text-transform:uppercase;}
-.ts-title{font-size:9px;font-weight:600;letter-spacing:0.28em;color:rgba(255,255,255,0.4);text-transform:uppercase;}
-.hero{background:linear-gradient(160deg,#120828 0%,#230b4a 50%,#120828 100%);padding:44px 32px 40px;text-align:center;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:500px;height:350px;background:radial-gradient(ellipse,rgba(232,201,126,0.1) 0%,transparent 70%);}
-.h-eyebrow{font-size:9px;font-weight:600;letter-spacing:0.35em;text-transform:uppercase;color:rgba(232,201,126,0.65);margin-bottom:18px;}
-.h-title{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;line-height:1;color:#f5edd8;margin-bottom:4px;}
-.h-edition{font-size:9px;font-weight:600;letter-spacing:0.35em;text-transform:uppercase;color:rgba(232,201,126,0.5);margin-bottom:22px;}
-.h-line{height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,0.35),transparent);margin:0 auto;max-width:180px;}
-.h-date{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;color:#e8c97e;margin-top:22px;margin-bottom:6px;letter-spacing:0.05em;}
-.h-place{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.35);}
-.guest-sec{padding:26px 32px;background:#fff;border-bottom:1px solid #ece8e0;}
-.g-lbl{font-size:8px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#bbb;margin-bottom:4px;}
-.g-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:#1a0a2e;margin-bottom:14px;line-height:1.1;}
-.g-meta{display:flex;flex-wrap:wrap;gap:20px;}
-.m-item{display:flex;flex-direction:column;gap:2px;}
-.m-key{font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#bbb;}
-.m-val{font-size:12px;font-weight:600;color:#333;}
-.perf{position:relative;margin:0 32px;}
-.perf-line{height:1px;background:repeating-linear-gradient(90deg,#ddd 0,#ddd 7px,transparent 7px,transparent 13px);}
-.perf::before,.perf::after{content:'';position:absolute;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;background:#ece8e0;z-index:1;}
-.perf::before{left:-32px;}
-.perf::after{right:-32px;}
-.perks-sec{padding:22px 32px;background:#fff;}
-.pk-title{font-size:8px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#bbb;margin-bottom:14px;}
-.pk-grid{display:flex;gap:10px;}
-.perk{flex:1;padding:13px 10px;background:#faf8f4;border-radius:6px;border:1px solid #ede8df;text-align:center;}
-.pk-icon{font-size:20px;margin-bottom:6px;}
-.pk-val{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#1a0a2e;line-height:1;}
-.pk-desc{font-size:8px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#aaa;margin-top:3px;}
-.logos-sec{padding:18px 32px;background:#f7f4ef;display:flex;align-items:center;justify-content:center;gap:28px;border-top:1px solid #ede8df;}
-.lp{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0.35;}
-.lp-box{width:44px;height:22px;background:#ccc;border-radius:2px;}
-.lp span{font-size:7px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#999;}
-.ticket-foot{background:linear-gradient(135deg,#120828 0%,#28085c 50%,#120828 100%);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;}
-.tf-code{font-size:13px;font-weight:800;letter-spacing:0.2em;color:#e8c97e;}
-.tf-note{font-size:8px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.28);}
-.print-btn{display:block;width:calc(100% - 48px);max-width:532px;margin:20px auto;padding:14px;background:linear-gradient(135deg,#d4a843,#e8c97e,#c8902a);color:#1a0a2e;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border:none;border-radius:6px;cursor:pointer;}
-@media print{.print-btn{display:none;}.page{padding:0;min-height:auto;}.ticket{box-shadow:none;max-width:none;}}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+body{background:#020208;color:#f5edd8;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:#3a2200;border-radius:2px;}
+
+/* AURORA */
+.aurora{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);}
+.b1{width:min(80vw,750px);height:min(80vw,750px);background:radial-gradient(ellipse,rgba(72,12,175,0.55) 0%,transparent 70%);top:-25%;left:-15%;animation:b1 28s ease-in-out infinite;}
+.b2{width:min(65vw,650px);height:min(65vw,650px);background:radial-gradient(ellipse,rgba(210,0,110,0.22) 0%,transparent 70%);top:35%;right:-18%;animation:b2 22s ease-in-out infinite;}
+.b3{width:min(55vw,550px);height:min(55vw,550px);background:radial-gradient(ellipse,rgba(130,75,0,0.28) 0%,transparent 70%);bottom:-5%;left:18%;animation:b3 34s ease-in-out infinite;}
+@keyframes b1{0%,100%{transform:translate(0,0) scale(1);}30%{transform:translate(6%,-10%) scale(1.08);}65%{transform:translate(9%,6%) scale(0.94);}}
+@keyframes b2{0%,100%{transform:translate(0,0) scale(1);}38%{transform:translate(-8%,8%) scale(1.1);}72%{transform:translate(5%,-6%) scale(0.93);}}
+@keyframes b3{0%,100%{transform:translate(0,0) scale(1);}42%{transform:translate(-6%,-6%) scale(1.06);}80%{transform:translate(8%,4%) scale(0.97);}}
+
+/* GRAIN */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* CANVASES */
+#pcv,#ccv{position:fixed;inset:0;pointer-events:none;}
+#pcv{z-index:1;}
+#ccv{z-index:100;display:none;}
+
+/* TOP BAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:18px 32px;background:linear-gradient(to bottom,rgba(2,2,8,.92),transparent);display:flex;justify-content:center;}
+.topbar span{font-size:9px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,201,126,0.35);}
+
+/* MAIN */
+main{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:90px 20px 80px;}
+
+/* HERO */
+.hero{text-align:center;margin-bottom:64px;max-width:640px;}
+.badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(232,201,126,0.22);border-radius:100px;padding:7px 20px;margin-bottom:36px;background:rgba(232,201,126,0.04);backdrop-filter:blur(10px);animation:fuUp .8s ease both;}
+.bdot{width:5px;height:5px;border-radius:50%;background:#e8c97e;box-shadow:0 0 12px rgba(232,201,126,.9);animation:bpulse 2s ease-in-out infinite;}
+.badge span{font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#e8c97e;}
+@keyframes bpulse{0%,100%{box-shadow:0 0 12px rgba(232,201,126,.9);}50%{box-shadow:0 0 22px rgba(232,201,126,.4);}}
+
+.htitle{animation:fuUp .9s .15s ease both;opacity:0;}
+.hs{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(68px,13vw,112px);font-weight:300;font-style:italic;line-height:.88;background:linear-gradient(150deg,#c8902a 0%,#e8c97e 28%,#f7eabb 52%,#d4a843 78%,#c8902a 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fuUp .9s .15s ease both,sgold 7s 1.2s linear infinite;}
+.hd{display:block;font-family:'Montserrat',sans-serif;font-size:clamp(28px,5.5vw,50px);font-weight:800;letter-spacing:0.38em;text-transform:uppercase;color:#f5edd8;text-shadow:0 0 60px rgba(245,237,216,.18);}
+@keyframes sgold{0%{background-position:0% center;}100%{background-position:200% center;}}
+
+.hedition{margin-top:14px;font-size:11px;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:rgba(232,201,126,.55);animation:fuUp .9s .3s ease both;opacity:0;}
+.hdiv{width:160px;height:1px;margin:20px auto;background:linear-gradient(90deg,transparent,rgba(232,201,126,.4),transparent);animation:fi 1s .4s ease both;opacity:0;}
+.hinfo{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,237,216,.38);animation:fuUp .9s .45s ease both;opacity:0;}
+.hinfo em{font-style:normal;color:rgba(232,201,126,.45);margin:0 8px;}
+
+/* GLASS CARD */
+.glass{position:relative;background:rgba(8,4,22,.84);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);border:1px solid rgba(212,168,67,.14);border-radius:20px;box-shadow:0 0 0 1px rgba(212,168,67,.04),0 60px 120px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);}
+.glass::before{content:'';position:absolute;top:0;left:14%;right:14%;height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,.45),transparent);}
+
+/* FIELDS */
+.field{position:relative;}
+.fi{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(232,201,126,.11);border-radius:10px;padding:20px 16px 8px;color:#f5edd8;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:400;outline:none;transition:border-color .25s,background .25s,box-shadow .25s;-webkit-appearance:none;appearance:none;}
+.fi:focus{border-color:rgba(232,201,126,.42);background:rgba(255,255,255,.05);box-shadow:0 0 0 4px rgba(232,201,126,.06),0 0 24px rgba(232,201,126,.08);}
+.fi.v{border-color:rgba(232,201,126,.17);}
+.fl{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,237,216,.3);pointer-events:none;transition:all .2s cubic-bezier(.4,0,.2,1);}
+.fi:focus~.fl,.fi.v~.fl{top:9px;transform:none;font-size:8px;letter-spacing:.16em;color:rgba(232,201,126,.7);}
+select.fi{padding-top:8px;padding-bottom:8px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(232,201,126,0.45)'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+select.fi option{background:#0a0518;color:#f5edd8;}
+
+/* BUTTONS */
+.btn-g{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#b8741d 0%,#d4a843 35%,#e8c97e 60%,#c8902a 100%);background-size:200% auto;color:#0a0518;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:15px 28px;border-radius:10px;border:none;cursor:pointer;transition:all .3s ease;box-shadow:0 4px 28px rgba(180,130,30,.35);position:relative;overflow:hidden;}
+.btn-g::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.18) 55%,transparent 65%);background-size:300% auto;background-position:200% center;transition:background-position .55s ease;}
+.btn-g:hover:not(:disabled)::after{background-position:-30% center;}
+.btn-g:hover:not(:disabled){box-shadow:0 8px 44px rgba(180,130,30,.55);transform:translateY(-2px);background-position:100% center;}
+.btn-g:disabled{opacity:.22;cursor:not-allowed;transform:none;}
+.btn-o{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:rgba(245,237,216,.38);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:15px 28px;border-radius:10px;border:1px solid rgba(245,237,216,.1);cursor:pointer;transition:all .25s ease;}
+.btn-o:hover:not(:disabled){border-color:rgba(245,237,216,.22);color:rgba(245,237,216,.7);background:rgba(255,255,255,.02);}
+.btn-o:disabled{opacity:.2;cursor:not-allowed;}
+
+/* SPINNER */
+.spin{width:40px;height:40px;border:2px solid rgba(232,201,126,.1);border-top-color:#e8c97e;border-radius:50%;animation:rot .8s linear infinite;}
+@keyframes rot{to{transform:rotate(360deg);}}
+
+/* PERK */
+.perk{display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px;transition:.3s;}
+.perk:hover{border-color:rgba(232,201,126,.14);background:rgba(232,201,126,.02);}
+
+/* ANIMS */
+@keyframes fuUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fi{from{opacity:0;}to{opacity:1;}}
+@keyframes sIn{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
+@keyframes chk{from{stroke-dashoffset:54;}to{stroke-dashoffset:0;}}
+
+.chkc{animation:sIn .4s .1s ease both;}
+.chkp{stroke-dasharray:54;stroke-dashoffset:54;animation:chk .5s .45s ease-out forwards;}
 </style>
 </head>
 <body>
-<div class="page">
-<div class="ticket">
-  <div class="top-stripe">
-    <span class="ts-code">${ticket}</span>
-    <span class="ts-title">Semilac Days 2026</span>
-  </div>
-  <div class="hero">
-    <p class="h-eyebrow">Billet VIP &nbsp;·&nbsp; Invitation Officielle</p>
-    <h1 class="h-title">Semilac <em style="font-style:italic;">Days</em></h1>
-    <p class="h-edition">2ème Édition</p>
-    <div class="h-line"></div>
-    <p class="h-date">14 — 19 Mai 2026</p>
-    <p class="h-place">Showroom Cosmotrend &nbsp;·&nbsp; Casablanca</p>
-  </div>
-  <div class="guest-sec">
-    <p class="g-lbl">Titulaire du billet</p>
-    <p class="g-name">${name}</p>
-    <div class="g-meta">
-      <div class="m-item"><span class="m-key">Salon / Institut</span><span class="m-val">${salon}</span></div>
-      <div class="m-item"><span class="m-key">Ville</span><span class="m-val">${city}</span></div>
-      <div class="m-item"><span class="m-key">Personnes</span><span class="m-val">${guests}</span></div>
-      <div class="m-item"><span class="m-key">Représentant</span><span class="m-val">${rep}</span></div>
-    </div>
-  </div>
-  <div class="perf"><div class="perf-line"></div></div>
-  <div class="perks-sec">
-    <p class="pk-title">Avantages inclus</p>
-    <div class="pk-grid">
-      <div class="perk"><div class="pk-icon">🎫</div><div class="pk-val">-25%</div><div class="pk-desc">Sur commandes</div></div>
-      <div class="perk"><div class="pk-icon">⭐</div><div class="pk-val">Tombola</div><div class="pk-desc">Ticket offert</div></div>
-      <div class="perk"><div class="pk-icon">🚗</div><div class="pk-val">VTC</div><div class="pk-desc">Chauffeur offert</div></div>
-    </div>
-  </div>
-  <div class="logos-sec">
-    <div class="lp"><div class="lp-box"></div><span>Semilac Days</span></div>
-    <div class="lp"><div class="lp-box"></div><span>Semilac</span></div>
-    <div class="lp"><div class="lp-box"></div><span>Footlogix</span></div>
-    <div class="lp"><div class="lp-box"></div><span>Semilac Académie</span></div>
-  </div>
-  <div class="ticket-foot">
-    <span class="tf-code">${ticket}</span>
-    <span class="tf-note">Billet nominatif · non cessible</span>
-  </div>
-</div>
-</div>
-<button class="print-btn" onclick="window.print()">Enregistrer en PDF</button>
-</body>
-</html>`);
-      win.document.close();
-    }
+<div class="aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="grain" aria-hidden="true"></div>
+<canvas id="pcv"></canvas>
+<canvas id="ccv"></canvas>
 
-    checkForm();
-  </script>
+<div class="topbar" aria-hidden="true"><span>Cosmotrend &nbsp;·&nbsp; Casablanca &nbsp;·&nbsp; 2026</span></div>
+
+<main>
+  <header class="hero">
+    <div class="badge"><span class="bdot"></span><span>Invitation Exclusive</span></div>
+    <h1>
+      <span class="hs">Semilac</span>
+      <span class="hd">Days</span>
+    </h1>
+    <p class="hedition">2ème Édition</p>
+    <div class="hdiv"></div>
+    <p class="hinfo">14 — 19 Mai 2026 <em>·</em> Showroom Cosmotrend <em>·</em> Casablanca</p>
+  </header>
+
+  <div style="width:100%;max-width:520px;">
+
+    <!-- FORM -->
+    <div id="vf" class="glass" style="padding:44px 36px;animation:fuUp .9s .55s ease both;opacity:0;">
+      <p style="text-align:center;font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(232,201,126,.38);margin-bottom:32px;">Confirmez votre présence</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="field"><input id="fn" class="fi" type="text" autocomplete="name" oninput="mv(this);cf()"/><label class="fl">Nom &amp; Prénom *</label></div>
+        <div class="field"><input id="fs" class="fi" type="text" oninput="mv(this);cf()"/><label class="fl">Salon / Institut *</label></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="field"><input id="fc" class="fi" type="text" oninput="mv(this);cf()"/><label class="fl">Ville *</label></div>
+          <div class="field"><input id="fp" class="fi" type="tel" oninput="mv(this);cf()"/><label class="fl">WhatsApp *</label></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="field">
+            <select id="fg" class="fi v" onchange="cf()"><option value="1">1 personne</option><option value="2">2 personnes</option><option value="3">3 personnes</option><option value="4">4 personnes</option><option value="5">5 personnes</option></select>
+            <label class="fl" style="top:9px;transform:none;font-size:8px;letter-spacing:.16em;color:rgba(232,201,126,.7);">Nb personnes</label>
+          </div>
+          <div class="field">
+            <select id="fr" class="fi" onchange="cf();this.classList.add('v')"><option value=""></option><option>Boutaina</option><option>Zineb</option><option>Radia</option><option>Marwa</option><option>Chaima</option><option>Wafaa</option><option>Kamilia</option></select>
+            <label class="fl">Représentant *</label>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:28px;">
+        <button id="bc" class="btn-g" style="flex:2;" onclick="sub('confirm')" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Je confirme
+        </button>
+        <button id="bd" class="btn-o" style="flex:1;" onclick="sub('decline')" disabled>Décliner</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div id="vl" style="display:none;text-align:center;padding:80px 0;">
+      <div class="spin" style="margin:0 auto 20px;"></div>
+      <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,237,216,.28);">Enregistrement…</p>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="vs" style="display:none;" class="glass">
+      <div style="padding:52px 36px;text-align:center;">
+        <div class="chkc" style="margin:0 auto 28px;">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+            <circle cx="36" cy="36" r="34" stroke="rgba(232,201,126,.12)" stroke-width="1.5"/>
+            <circle cx="36" cy="36" r="34" stroke="url(#gr)" stroke-width="1.5" stroke-dasharray="214" stroke-dashoffset="0" opacity=".55"/>
+            <polyline class="chkp" points="20,36 30,46 52,26" stroke="#e8c97e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <defs><linearGradient id="gr" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#c8902a"/><stop offset="50%" stop-color="#e8c97e"/><stop offset="100%" stop-color="#c8902a"/></linearGradient></defs>
+          </svg>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:#f5edd8;margin-bottom:8px;letter-spacing:-.01em;">Votre place est réservée</h2>
+        <p style="font-size:12px;color:rgba(245,237,216,.38);letter-spacing:.07em;margin-bottom:36px;">Nous avons hâte de vous accueillir</p>
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,.22),transparent);margin-bottom:32px;"></div>
+        <p style="font-size:9px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(245,237,216,.22);margin-bottom:12px;">Numéro de billet</p>
+        <div style="display:inline-block;padding:14px 30px;background:rgba(232,201,126,.05);border:1px solid rgba(232,201,126,.17);border-radius:10px;margin-bottom:36px;box-shadow:0 0 50px rgba(232,201,126,.06);">
+          <span id="td" style="font-family:'Courier New',monospace;font-size:26px;font-weight:700;letter-spacing:.18em;color:#e8c97e;text-shadow:0 0 30px rgba(232,201,126,.4);"></span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;text-align:left;">
+          <div class="perk"><span style="font-size:22px;flex-shrink:0;">🎫</span><div><p style="font-size:13px;font-weight:600;color:#f0e8d5;margin-bottom:3px;">Coupon -25% exclusif</p><p style="font-size:11px;color:rgba(245,237,216,.32);">Sur vos commandes durant l'événement</p></div></div>
+          <div class="perk"><span style="font-size:22px;flex-shrink:0;">⭐</span><div><p style="font-size:13px;font-weight:600;color:#f0e8d5;margin-bottom:3px;">Ticket tombola offert</p><p style="font-size:11px;color:rgba(245,237,216,.32);">Tentez de remporter des prix exclusifs</p></div></div>
+          <div class="perk"><span style="font-size:22px;flex-shrink:0;">🚗</span><div><p style="font-size:13px;font-weight:600;color:#f0e8d5;margin-bottom:3px;">VTC privé offert</p><p style="font-size:11px;color:rgba(245,237,216,.32);">Réservez via WhatsApp : 0663-596-644</p></div></div>
+        </div>
+        <button class="btn-g" style="width:100%;margin-bottom:12px;" onclick="openTicket()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Télécharger mon billet PDF
+        </button>
+        <button class="btn-o" style="width:100%;font-size:10px;" onclick="rf()">Modifier ma réponse</button>
+      </div>
+    </div>
+
+    <!-- DECLINE -->
+    <div id="vd" style="display:none;" class="glass">
+      <div style="padding:52px 36px;text-align:center;">
+        <div style="width:64px;height:64px;border-radius:50%;border:1px solid rgba(245,237,216,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;background:rgba(255,255,255,.02);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(245,237,216,.28)" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:#f5edd8;margin-bottom:8px;">Réponse enregistrée</h2>
+        <p style="font-size:13px;color:rgba(245,237,216,.38);line-height:1.8;margin-bottom:36px;">Nous espérons vous retrouver<br>lors de la prochaine édition.</p>
+        <button class="btn-o" style="width:100%;" onclick="rf()">Modifier ma réponse</button>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:64px;text-align:center;">
+    <p style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,216,.1);">Cosmotrend · Casablanca · 2026</p>
+  </footer>
+</main>
+
+<script>
+/* PARTICLES */
+(function(){
+  const cv=document.getElementById('pcv'),x=cv.getContext('2d');
+  let W,H,ps=[];
+  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+  window.addEventListener('resize',resize);resize();
+  function mp(){return{x:Math.random()*W,y:H+Math.random()*80,s:Math.random()*1.8+.3,vx:(Math.random()-.5)*.35,vy:-(Math.random()*.65+.2),o:Math.random()*.55+.1,tw:Math.random()*Math.PI*2,ts:Math.random()*.025+.008};}
+  for(let i=0;i<75;i++){const p=mp();p.y=Math.random()*H;ps.push(p);}
+  function fr(){
+    x.clearRect(0,0,W,H);
+    ps.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.tw+=p.ts;
+      if(p.y<-10||p.x<-10||p.x>W+10)Object.assign(p,mp());
+      const a=p.o*(0.5+0.5*Math.sin(p.tw));
+      x.save();x.globalAlpha=a;x.fillStyle='#e8c97e';
+      x.shadowBlur=7;x.shadowColor='rgba(232,201,126,.7)';
+      x.beginPath();x.arc(p.x,p.y,p.s,0,Math.PI*2);x.fill();x.restore();
+    });
+    requestAnimationFrame(fr);
+  }
+  fr();
+})();
+
+/* CONFETTI */
+const ccv=document.getElementById('ccv'),cx=ccv.getContext('2d');
+let cp=[];
+const CC=['#E8C97E','#EC008C','#FFFFFF','#F7EAB5','#FF3DAB','#D4A843','#B8E8FF'];
+function launch(){
+  ccv.width=window.innerWidth;ccv.height=window.innerHeight;
+  ccv.style.display='block';
+  const ox=window.innerWidth/2,oy=window.innerHeight*.44;
+  for(let i=0;i<200;i++)cp.push({x:ox+(Math.random()-.5)*60,y:oy,vx:(Math.random()-.5)*15,vy:-(Math.random()*15+5),g:.38,dr:.99,s:Math.random()*9+3,c:CC[Math.floor(Math.random()*CC.length)],r:Math.random()*360,rs:(Math.random()-.5)*10,sh:Math.random()>.35?'r':'c',asp:.3+Math.random()*.5,li:1,dc:Math.random()*.008+.004});
+  ac();
+}
+function ac(){
+  cx.clearRect(0,0,ccv.width,ccv.height);
+  cp=cp.filter(p=>p.li>0);
+  cp.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=p.dr;p.r+=p.rs;p.li-=p.dc;
+    cx.save();cx.globalAlpha=p.li;cx.fillStyle=p.c;
+    cx.translate(p.x,p.y);cx.rotate(p.r*Math.PI/180);
+    if(p.sh==='r')cx.fillRect(-p.s/2,-p.s*p.asp/2,p.s,p.s*p.asp);
+    else{cx.beginPath();cx.arc(0,0,p.s/2,0,Math.PI*2);cx.fill();}
+    cx.restore();
+  });
+  if(cp.length>0)requestAnimationFrame(ac);
+  else ccv.style.display='none';
+}
+
+/* FORM */
+const SU='https://script.google.com/macros/s/AKfycbxdFgoG_FAeX_TbmztcrLLigfA3OIiczGTZnDg0itZ1djTWHrObY0DbLOYwFqQgsTyd/exec';
+let tk='';
+function mv(el){el.value.trim()?el.classList.add('v'):el.classList.remove('v');}
+function cf(){
+  const ok=['fn','fs','fc','fp','fr'].every(id=>document.getElementById(id).value.trim()!=='');
+  document.getElementById('bc').disabled=!ok;
+  document.getElementById('bd').disabled=!ok;
+}
+function sv(id){['vf','vl','vs','vd'].forEach(v=>{document.getElementById(v).style.display=v===id?'':'none';});}
+function sub(t){
+  const n=document.getElementById('fn').value.trim(),s=document.getElementById('fs').value.trim(),c=document.getElementById('fc').value.trim(),p=document.getElementById('fp').value.trim(),g=document.getElementById('fg').value,r=document.getElementById('fr').value;
+  tk='SD26-'+String(Math.floor(1000+Math.random()*9000));
+  fetch(SU+'?'+new URLSearchParams({name:n,salon:s,city:c,phone:p,guests:g,rep:r,type:t,ticket:tk}).toString(),{mode:'no-cors'}).catch(()=>{});
+  sv('vl');
+  setTimeout(()=>{if(t==='confirm'){document.getElementById('td').textContent=tk;sv('vs');setTimeout(launch,350);}else sv('vd');},1400);
+}
+function rf(){
+  ['fn','fs','fc','fp'].forEach(id=>{const el=document.getElementById(id);el.value='';el.classList.remove('v');});
+  document.getElementById('fr').value='';document.getElementById('fr').classList.remove('v');
+  document.getElementById('fg').value='1';
+  document.getElementById('bc').disabled=true;document.getElementById('bd').disabled=true;
+  sv('vf');
+}
+
+/* TICKET */
+function openTicket(){
+  const n=document.getElementById('fn').value.trim(),s=document.getElementById('fs').value.trim(),c=document.getElementById('fc').value.trim(),g=document.getElementById('fg').value,r=document.getElementById('fr').value,t=tk;
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Billet VIP — ${t}</title><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/><style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#e2ddd5;font-family:'Montserrat',sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;}.ticket{width:100%;max-width:610px;overflow:hidden;border-radius:3px;box-shadow:0 40px 100px rgba(0,0,0,0.28),0 10px 30px rgba(0,0,0,0.15);}.th{background:linear-gradient(135deg,#0c0422 0%,#1c0738 45%,#280d52 65%,#0c0422 100%);padding:18px 38px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;}.th::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(105deg,transparent,transparent 40px,rgba(232,201,126,0.025) 40px,rgba(232,201,126,0.025) 41px);}.thc{font-size:11px;font-weight:700;letter-spacing:0.22em;color:rgba(232,201,126,0.88);text-transform:uppercase;position:relative;z-index:1;}.tht{font-size:9px;font-weight:600;letter-spacing:0.3em;color:rgba(255,255,255,0.32);text-transform:uppercase;position:relative;z-index:1;}.hero{background:linear-gradient(160deg,#0c0422 0%,#1c0738 30%,#2a1060 55%,#180840 80%,#0c0422 100%);padding:54px 38px 46px;text-align:center;position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;top:-130px;left:50%;transform:translateX(-50%);width:560px;height:420px;background:radial-gradient(ellipse,rgba(232,201,126,0.13) 0%,transparent 65%);}.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,0.28),transparent);}.eyebrow{font-size:9px;font-weight:600;letter-spacing:0.42em;text-transform:uppercase;color:rgba(232,201,126,0.52);margin-bottom:22px;display:flex;align-items:center;justify-content:center;gap:14px;position:relative;}.eyebrow::before,.eyebrow::after{content:'✦';color:rgba(232,201,126,0.3);font-size:8px;}.htl{font-family:'Cormorant Garamond',serif;line-height:1;margin-bottom:6px;position:relative;}.hs{display:block;font-size:64px;font-weight:300;font-style:italic;color:#f5edd8;letter-spacing:-0.01em;}.hd{display:block;font-size:26px;font-weight:800;letter-spacing:0.45em;text-transform:uppercase;color:rgba(245,237,216,0.65);margin-top:2px;}.edition{font-size:9px;font-weight:600;letter-spacing:0.38em;text-transform:uppercase;color:rgba(232,201,126,0.48);margin-top:14px;margin-bottom:24px;position:relative;}.gline{height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,126,0.38),transparent);max-width:200px;margin:0 auto 24px;}.date{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:400;color:#e8c97e;letter-spacing:0.06em;margin-bottom:8px;position:relative;}.place{font-size:9px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(255,255,255,0.3);position:relative;}.gs{background:#fff;padding:28px 38px;}.gl{font-size:8px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:#c0b5aa;margin-bottom:6px;}.gn{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:#180840;line-height:1.08;margin-bottom:18px;}.gm{display:flex;flex-wrap:wrap;gap:18px 28px;}.mk{font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#c0b5aa;margin-bottom:3px;}.mv{font-size:12px;font-weight:600;color:#280d52;}.perf{position:relative;overflow:visible;background:#fff;}.pi{height:1px;background:repeating-linear-gradient(90deg,#ddd 0,#ddd 7px,transparent 7px,transparent 13px);margin:0 1px;}.perf::before,.perf::after{content:'';position:absolute;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:#e2ddd5;z-index:1;}.perf::before{left:-2px;}.perf::after{right:-2px;}.perks{background:#fff;padding:22px 38px 26px;}.pkl{font-size:8px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#c0b5aa;margin-bottom:14px;}.pkg{display:flex;gap:12px;}.pk{flex:1;padding:14px 10px 12px;background:#faf7f3;border-radius:8px;border:1px solid #e8e0d5;text-align:center;}.pki{font-size:22px;margin-bottom:8px;}.pkv{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#180840;line-height:1;}.pkd{font-size:8px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#b0a598;margin-top:3px;}.logos{background:#f5f1eb;padding:18px 38px;display:flex;align-items:center;justify-content:center;gap:32px;border-top:1px solid #e8e0d5;}.lph{display:flex;flex-direction:column;align-items:center;gap:5px;opacity:0.3;}.lphb{width:50px;height:25px;background:#b8b0a5;border-radius:3px;}.lph span{font-size:7px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#a09890;}.tf{background:linear-gradient(135deg,#0c0422 0%,#1c0738 45%,#280d52 65%,#0c0422 100%);padding:14px 38px;display:flex;align-items:center;justify-content:space-between;}.tfc{font-size:13px;font-weight:800;letter-spacing:0.2em;color:#e8c97e;}.tfn{font-size:8px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);}.pb{display:block;width:calc(100% - 40px);max-width:570px;margin:22px auto;padding:14px;background:linear-gradient(135deg,#b8741d,#d4a843,#e8c97e,#c8902a);background-size:200%;color:#0c0422;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:none;border-radius:8px;cursor:pointer;transition:background-position .4s;box-shadow:0 4px 24px rgba(180,130,30,0.3);}.pb:hover{background-position:100%;}@media print{.pb{display:none;}.page{padding:0;min-height:auto;}.ticket{box-shadow:none;max-width:none;}}</style></head><body><div class="page"><div class="ticket"><div class="th"><span class="thc">${t}</span><span class="tht">Semilac Days 2026</span></div><div class="hero"><p class="eyebrow">Billet VIP &nbsp;·&nbsp; Invitation Officielle</p><h1 class="htl"><span class="hs">Semilac</span><span class="hd">Days</span></h1><p class="edition">2ème Édition</p><div class="gline"></div><p class="date">14 — 19 Mai 2026</p><p class="place">Showroom Cosmotrend &nbsp;·&nbsp; Casablanca</p></div><div class="gs"><p class="gl">Titulaire du billet</p><p class="gn">${n}</p><div class="gm"><div><p class="mk">Salon / Institut</p><p class="mv">${s}</p></div><div><p class="mk">Ville</p><p class="mv">${c}</p></div><div><p class="mk">Personnes</p><p class="mv">${g}</p></div><div><p class="mk">Représentant</p><p class="mv">${r}</p></div></div></div><div class="perf"><div class="pi"></div></div><div class="perks"><p class="pkl">Avantages inclus</p><div class="pkg"><div class="pk"><div class="pki">🎫</div><div class="pkv">-25%</div><div class="pkd">Sur commandes</div></div><div class="pk"><div class="pki">⭐</div><div class="pkv">Tombola</div><div class="pkd">Ticket offert</div></div><div class="pk"><div class="pki">🚗</div><div class="pkv">VTC</div><div class="pkd">Chauffeur offert</div></div></div></div><div class="logos"><div class="lph"><div class="lphb"></div><span>Semilac Days</span></div><div class="lph"><div class="lphb"></div><span>Semilac</span></div><div class="lph"><div class="lphb"></div><span>Footlogix</span></div><div class="lph"><div class="lphb"></div><span>Semilac Académie</span></div></div><div class="tf"><span class="tfc">${t}</span><span class="tfn">Billet nominatif · non cessible</span></div></div></div><button class="pb" onclick="window.print()">Enregistrer en PDF</button></body></html>`);
+  w.document.close();
+}
+cf();
+</script>
 </body>
 </html>
